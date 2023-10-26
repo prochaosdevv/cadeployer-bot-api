@@ -4,6 +4,7 @@ dotenv.config();
 
 const uri = "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASSWORD + "@" + process.env.DB_URI + "/cadeployer?retryWrites=true&w=majority";
 
+
 const connectDatabase = () => {
     mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => {
@@ -14,4 +15,3 @@ const connectDatabase = () => {
 }
 
 module.exports = connectDatabase;
-
