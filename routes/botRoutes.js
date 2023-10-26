@@ -20,9 +20,9 @@ const userStates = {};
 // Define a route
     
   bot.onText(/\/start/, async (msg) => {
+    const chatId = msg.chat.id;
     if(!uniqueid.includes(chatId+msg.message_id)){
     const request = await CreateRequest({username: msg.chat.username})
-    const chatId = msg.chat.id;
     bot.sendMessage(chatId, 'Welcome to CA Deployer Bot! Please select a network (example: 97) to continue.' , {  "reply_markup": {
         "inline_keyboard": [         
             [
@@ -49,9 +49,9 @@ const userStates = {};
 
    bot.on('callback_query', function onCallbackQuery(callbackQuery) {
   
+    const chatId = callbackQuery.message.chat.id ; 
 
     if(!uniqueid.includes(parseInt(callbackQuery.id)+callbackQuery.message.chat.id+callbackQuery.message.message_id)){
-    let chatId = callbackQuery.message.chat.id ; 
     if(callbackQuery.data.includes("network_")){
         // subscribe(callbackQuery.message)
         let network_data = callbackQuery.data  ;
