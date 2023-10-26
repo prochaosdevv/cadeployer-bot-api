@@ -8,11 +8,16 @@ const { createUser } = require('./controller/user');
 const { CreateRequest,UpdateRequest } = require('./controller/request');
 const connectDatabase = require('./utils/dbConnection');
 const { verify } = require('./controller/verify');
+
+const botRotues = require("./routes/botRoutes");
+const { ObjectId } = require('mongodb');
+
 const app = express();
 const port = process.env.PORT || 3000;
 connectDatabase();
 
 
+// UpdateRequest({request_id: "653aad5840ba4970a5d19f4a"  , updateData : {network: '56'}});
 
 
 
@@ -64,7 +69,6 @@ connectDatabase();
 // const user = "testyasir12345"
 // verify({username: user},contractName,contract)
 
-const botRotues = require("./routes/botRoutes")
 app.use("/bot" , botRotues)
 
 // Start the server

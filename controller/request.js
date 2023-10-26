@@ -1,4 +1,5 @@
-const requestModel = require('../models/requests');
+const { ObjectId } = require('mongodb');
+const requestModel = require('../models/requests'); 
 
 
 // create request:
@@ -26,13 +27,13 @@ exports.UpdateRequest = async (data) => {
     try {
         const {request_id, ...updateData } = data;
 
-        if ('user' in updateData) {
+        if ('user' in updateData.updateData) {
             return { result: 0, message: 'User name cannot be updated' };
         }
-
+        // console.log(updateData);
         const updatedRequest = await requestModel.findOneAndUpdate(
             { _id: request_id },
-            { $set: updateData },
+            { $set: updateData.updateData },
             { new: true } 
         );
 
