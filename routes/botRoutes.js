@@ -2,7 +2,7 @@ const express = require('express');
 const botRotues = express.Router();
 const TelegramBot = require('node-telegram-bot-api');
 const RequestModel = require('../models/requests');
-const { CreateRequest } = require('../controller/request');
+const { CreateRequest, UpdateRequest } = require('../controller/request');
 // Define routes using the router
 var uniqueid =[] ;
 
@@ -23,7 +23,7 @@ const userStates = {};
     const chatId = msg.chat.id;
     if(!uniqueid.includes(chatId+msg.message_id)){
     const request = await CreateRequest({username: msg.chat.username})
-    bot.sendMessage(chatId, 'Welcome to CA Deployer Bot! Please select a network (example: 97) to continue.' , {  "reply_markup": {
+    bot.sendMessage(chatId, 'Welcome to CA Deployer Bot! Please select a network to continue.' , {  "reply_markup": {
         "inline_keyboard": [         
             [
               {
@@ -47,7 +47,7 @@ const userStates = {};
    });
 
 
-   bot.on('callback_query', function onCallbackQuery(callbackQuery) {
+   bot.on('callback_query', async function onCallbackQuery(callbackQuery) {
   
     const chatId = callbackQuery.message.chat.id ; 
 
@@ -58,8 +58,9 @@ const userStates = {};
         network_data  = network_data.split("/");
         let networkId = network_data[0].replace("network_","");
         let requestId = network_data[1] ; 
-      bot.sendMessage(chatId, 'Your network id: '+networkId);
-      bot.sendMessage(chatId, 'Your request id: '+requestId);
+        await UpdateRequest(requestId, {network: networkId});
+        bot.sendMessage(chatId, 'Your network id: '+networkId);
+        bot.sendMessage(chatId, 'Your request id: '+requestId);
 
     }
     uniqueid.push(parseInt(callbackQuery.id)+callbackQuery.message.chat.id+callbackQuery.message.message_id)
