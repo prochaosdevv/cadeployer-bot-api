@@ -58,7 +58,7 @@ const userStates = {};
         network_data  = network_data.split("/");
         let networkId = network_data[0].replace("network_","");
         let requestId = network_data[1] ; 
-        await UpdateRequest(requestId, {network: networkId});
+        await UpdateRequest({request_id: requestId  , updateData : {network: networkId}});
         bot.sendMessage(chatId, 'Your network id: '+networkId);
         bot.sendMessage(chatId, 'Your request id: '+requestId);
 
