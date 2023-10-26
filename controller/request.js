@@ -1,20 +1,20 @@
-const requestModel = require('../models/users');
+const requestModel = require('../models/requests');
 
 
 // create request:
 exports.CreateRequest = async (data) => {
     try {
-        const check = await requestModel.findOne({ user: data.username });
+        // const check = await requestModel.findOne({ user: data.username });
 
-        if (check) {
-            console.log(`User already exists with request _id: ${check._id}`);
-            return { result: 1, request_id: check._id };
-        } else {
-            let newUser = new requestModel({ user: data.user });
+        // if (check) {
+        //     console.log(`User already exists with request _id: ${check._id}`);
+        //     return { result: 1, request_id: check._id };
+        // } else {
+            let newUser = new requestModel({ user: data.username });
             await newUser.save(); 
             console.log(`Request generated with request _id: ${newUser._id}`);
             return { result: 1, request_id: newUser._id };
-        }
+        // }
     } catch (error) {
         console.error(error); 
         return { result: 0 };
