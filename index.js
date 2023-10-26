@@ -80,7 +80,7 @@ const userStates = {};
 
 bot.onText(/\/start/, (msg) => {
  const chatId = msg.chat.id;
- bot.sendMessage(chatId, 'Welcome to your bot! Please select a network (e.g., 97) to continue.');
+ bot.sendMessage(chatId, 'Welcome to your bot! Please select a network (example: 97) to continue.');
  userStates[chatId] = { awaitingNetwork: true };
 });
 
@@ -172,7 +172,7 @@ bot.on('message', async (msg) => {
    userStates[chatId].TREASURY_ADDRESS = text;
    userStates[chatId].awaitingTreasuryAddress = false;
 
-   
+
    const requestData = {
      user: userStates[chatId].user,
      network: userStates[chatId].network,
