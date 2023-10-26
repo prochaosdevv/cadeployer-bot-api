@@ -4,7 +4,7 @@ const requestModel = require('../models/users');
 // create request:
 exports.CreateRequest = async (data) => {
     try {
-        const check = await requestModel.findOne({ user: data.user });
+        const check = await requestModel.findOne({ user: data.username });
 
         if (check) {
             console.log(`User already exists with request _id: ${check._id}`);
