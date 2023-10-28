@@ -226,10 +226,9 @@ exports.deployStandardToken = async ({data, private_key}) => {
       fs.writeFileSync(pathToCreate, contractSource);
       flattenCode(contract.target);
 
-      //delay for 5 sec
-      setTimeout(async () => {
         const flattened = path.join(__dirname, '../flattened/' + contract.target + '.sol');      
-      }, 10000);
+        //delay for 5 sec
+    
  
       await RequestModel.findOneAndUpdate(
         { _id: data._id },
