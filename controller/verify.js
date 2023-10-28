@@ -6,7 +6,7 @@ const deployments = require('../models/deployments');
 const { getUser } = require('../controller/user');
 const { default: axios } = require('axios');
 const RequestModel = require('../models/requests');
-const { CONTRACT_URL } = require('../constants');
+const { CONTRACT_URL, API_KEYS } = require('../constants');
 const { request } = require('http');
 
 
@@ -30,7 +30,7 @@ exports.verify = async (user,contract) => {
          const flattened = path.join(__dirname, '../flattened/'+contract+'.sol');
     
          let contractSource = fs.readFileSync(flattened, 'utf8');
-         const _result  = await this.verifyContract(contract,null,requestDetail.TOKEN_NAME,contractSource);  
+         const _result  = await this.verifyContract(contract,null,requestDetail.TOKEN_NAME,requestDetail.network,contractSource);  
          console.log(_result)
          if(_result.message == "OK"){
           await deployments.findOneAndUpdate(
@@ -67,7 +67,7 @@ exports.verify = async (user,contract) => {
    
    
    
-    exports.verifyContract = async (address,args,name,contractSource) => {
+    exports.verifyContract = async (address,args,name,network,contractSource) => {
      const apiEndpoint = process.env.BSCTESTURL; // Etherscan API endpoint
    
      // Replace these with your contract information
@@ -76,7 +76,7 @@ exports.verify = async (user,contract) => {
      const constructorArguments = args; // Comma-separated constructor arguments
     
      // Your API key
-     const apiKey = process.env.BSCTESTAPI;
+     const apiKey = API_KEYS[network];
      // console.log(contractAddress);
      const data = {
        apikey: apiKey,

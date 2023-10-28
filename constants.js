@@ -32,3 +32,10 @@ exports.PANCAKE_ROUTER = {
     [1] : "0xEfF92A263d31888d860bD50809A8D171709b7b1c",
     [42161] : "0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb"
 }
+
+exports.API_KEYS = {
+    [97] : process.env.BSCTESTAPI,
+    [56] : process.env.BSCAPI,
+    [1] : process.env.ETHAPI,
+    [42161] : process.env.ARBIAPI
+}
