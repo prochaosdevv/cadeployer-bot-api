@@ -4,6 +4,7 @@ const users = require('../models/users');
 const { createUser } = require('./user');
 const { updatedCurrentField } = require('../utils/general');
 const RequestModel = require('../models/requests');
+const { UNISWAP_ROUTER, PANCAKE_ROUTER } = require('../constants');
 
 const nextField = {
     network: "TOKEN_NAME",
@@ -68,7 +69,7 @@ const routerMarkup = {
             [
               {
                 text: "PancakeSwap",
-                callback_data: "router_0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3",
+                callback_data: "router_"+PANCAKE_ROUTER[97],
 
               }
             ]            
@@ -79,12 +80,12 @@ const routerMarkup = {
             [
               {
                 text: "PancakeSwap",
-                callback_data: "router_0x10ED43C718714eb63d5aA57B78B54704E256024E",
+                callback_data: "router_"+PANCAKE_ROUTER[56],
 
               },
               {
                 text: "Uniswap",
-                callback_data: "router_0xB971eF87ede563556b2ED4b1C0b0019111Dd85d2",
+                callback_data: "router_"+UNISWAP_ROUTER[56],
 
               },
             ]            
@@ -95,12 +96,12 @@ const routerMarkup = {
             [
               {
                 text: "PancakeSwap",
-                callback_data: "router_0xEfF92A263d31888d860bD50809A8D171709b7b1c",
+                callback_data: "router_"+PANCAKE_ROUTER[1],
 
               },
               {
                 text: "Uniswap",
-                callback_data: "router_0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+                callback_data: "router_"+UNISWAP_ROUTER[1],
 
               },
             ]            
@@ -111,12 +112,12 @@ const routerMarkup = {
             [
               {
                 text: "PancakeSwap",
-                callback_data: "router_0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb",
+                callback_data: "router_"+PANCAKE_ROUTER[42161],
 
               },
               {
                 text: "Uniswap",
-                callback_data: "router_0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+                callback_data: "router_"+UNISWAP_ROUTER[42161],
 
               },
             ]            
