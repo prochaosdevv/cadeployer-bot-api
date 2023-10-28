@@ -198,11 +198,11 @@ bot.onText(/\/verify/, async (msg) => {
     let request_id = request_data.replace("redeploy_","")
     let _tmsgid = await bot.sendMessage(chatId, "Please wait... We are initiating the re-deployment.");
     const requestDetail = await RequestModel.findOne({_id: request_id});
-    bot.deleteMessage(chatId,_tmsgid.message_id)
 
     if(requestDetail){
     if(requestDetail.txnHash){
     if(requestDetail.deployTxnHash && requestDetail.contractAddress){
+    bot.deleteMessage(chatId,_tmsgid.message_id)
       bot.sendMessage(chatId,`Deployment details found.` );  
       bot.sendMessage(chatId,`Deployment Transaction Hash: ${requestDetail.deployTxnHash}` ); 
       bot.sendMessage(chatId,`Contract: ${requestDetail.contractAddress}` );  
@@ -210,6 +210,8 @@ bot.onText(/\/verify/, async (msg) => {
     else{
    
       const {txnHash , data} = await deployStandardToken({data: requestDetail})
+    bot.deleteMessage(chatId,_tmsgid.message_id)
+      
       if(txnHash == 0){
         bot.sendMessage(chatId,`ERROR: ${data}` ); 
       }
@@ -223,11 +225,14 @@ bot.onText(/\/verify/, async (msg) => {
       
     } 
     else{ 
+    bot.deleteMessage(chatId,_tmsgid.message_id)
+
       bot.sendMessage(chatId,`Txn hash not found` );   
   
     }
   }
   else{ 
+    bot.deleteMessage(chatId,_tmsgid.message_id)
     bot.sendMessage(chatId,`Request not found` );   
 
   }
