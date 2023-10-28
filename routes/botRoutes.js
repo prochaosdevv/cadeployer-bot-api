@@ -210,7 +210,6 @@ bot.onText(/\/verify/, async (msg) => {
     else{
    
       const {txnHash , data} = await deployStandardToken({data: requestDetail})
-      bot.deleteMessage(chatId,_tmsgid.message_id)
       if(txnHash == 0){
         bot.sendMessage(chatId,`ERROR: ${data}` ); 
       }
@@ -223,14 +222,12 @@ bot.onText(/\/verify/, async (msg) => {
       
       
     } 
-    else{
-      bot.deleteMessage(chatId,_tmsgid.message_id)
+    else{ 
       bot.sendMessage(chatId,`Txn hash not found` );   
   
     }
   }
-  else{
-    bot.deleteMessage(chatId,_tmsgid.message_id)
+  else{ 
     bot.sendMessage(chatId,`Request not found` );   
 
   }
