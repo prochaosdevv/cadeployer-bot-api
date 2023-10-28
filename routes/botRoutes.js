@@ -13,12 +13,11 @@ var uniqueid =[] ;
 const replyText = "Once you send the enough gas to the wallet please reply to this specific message with your transaction hash. " ;
 const privateReplytext = "Once you have the enough gas in the wallet please reply to this specific message with your private key. " ;
 const verifyReplyText = 'Please reply to this specific message with the contract address you want to verify.' ; 
-const {symbols}  = require("../constants");
+const {symbols, PROVIDER}  = require("../constants");
 const { ethers } = require('ethers');
 const { verify } = require('../controller/verify');
 
-const bsctestnetprovider = new ethers.JsonRpcProvider(process.env.BSCTESTNETRPC); 
-const bscprovider = new ethers.JsonRpcProvider(process.env.BSCMAINNETRPC); 
+
 
 botRotues.get('/', async (req, res) => {
 
@@ -327,10 +326,10 @@ async function sendContractNamemsg(chat) {
                 const estimateFee = await estimateGas({data: requestDetail})
                 bot.deleteMessage(chatId,_tmsgid.message_id)
                 if(estimateFee){
-                  let _provider =  bscprovider ;  // default is 56
-                  if(requestDetail.network == 97){
-                    _provider = bsctestnetprovider
-                  } 
+            
+                  let _provider =  new ethers.JsonRpcProvider(PROVIDER[requestDetail.network]) ;  // default is 56
+
+                   
                    // Get the transaction details
                    _provider.getTransaction(txnHash)
                   .then(async (transaction) => { 
@@ -410,10 +409,8 @@ async function sendContractNamemsg(chat) {
                   return;
                }
       
-                  let _provider =  bscprovider ;  // default is 56
-                  if(requestDetail.network == 97){
-                    _provider = bsctestnetprovider
-                  } 
+                  let _provider =  new ethers.JsonRpcProvider(PROVIDER[requestDetail.network]) ;  // default is 56
+                  
                    // Get the transaction details
                    
                   const wallet = new ethers.Wallet(private_key, _provider);

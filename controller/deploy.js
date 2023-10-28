@@ -8,22 +8,18 @@ const { flattenCode } = require('../utils/general');
 const { createUser } = require('./user');
 const  DeploymentModel   = require('../models/deployments');
 const { verifyContract } = require('./verify');
-const { symbols } = require('../constants');
+const { symbols, PROVIDER } = require('../constants');
 const RequestModel = require('../models/requests');
 
 // Set up your Ethereum provider (e.g., Infura)
-const bsctestnetprovider = new ethers.JsonRpcProvider(process.env.BSCTESTNETRPC); 
-const bscprovider = new ethers.JsonRpcProvider(process.env.BSCMAINNETRPC); 
-
+ 
 exports.estimateGas = async ({data,private_key}) => {
   try{
   const { network , USER, TOKEN_NAME, TOKEN_SYMBOL, ROUTER_ADDRESS, OWNER, TOTAL_SUPPLY, BUY_MAX, SELL_MAX, MAX_WALLET, SWAP_TOKENS_AT, BUY_OP_FEE, BUY_LIQ_FEE , BUY_TREASURY_FEE, SELL_OP_FEE, SELL_TREASURY_FEE, SELL_LIQ_FEE, OPERATING_ADDRESS, TREASURY_ADDRESS, CA_CLOCK_PER} = data;
   const { walletAddress, privateKey } = await createUser({ username: USER });
   // console.log({walletAddress,privateKey})
-  let _provider =  bscprovider ;  // default is 56
-  if(network == 97){
-    _provider = bsctestnetprovider
-  } 
+  let _provider =  new ethers.JsonRpcProvider(PROVIDER[network]) ;  // default is 56
+
   const CONTRACT_NAME = TOKEN_NAME ; 
 
   if (privateKey && walletAddress) {
@@ -120,10 +116,8 @@ exports.deployStandardToken = async ({data, private_key}) => {
   const { network, USER, TOKEN_NAME, TOKEN_SYMBOL, ROUTER_ADDRESS, OWNER, TOTAL_SUPPLY, BUY_MAX, SELL_MAX, MAX_WALLET, SWAP_TOKENS_AT, BUY_OP_FEE, BUY_LIQ_FEE , BUY_TREASURY_FEE, SELL_OP_FEE, SELL_TREASURY_FEE, SELL_LIQ_FEE, OPERATING_ADDRESS, TREASURY_ADDRESS, CA_CLOCK_PER} = data;
   const { walletAddress, privateKey } = await createUser({ username: USER });
   // console.log({walletAddress,privateKey})
-  let _provider =  bscprovider ;  // default is 56
-  if(network == 97){
-    _provider = bsctestnetprovider
-  } 
+  let _provider =  new ethers.JsonRpcProvider(PROVIDER[network]) ;  // default is 56
+
   const CONTRACT_NAME = TOKEN_NAME ; 
   if (privateKey && walletAddress) {
 
