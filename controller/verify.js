@@ -5,36 +5,50 @@ const fs = require('fs');
 const deployments = require('../models/deployments');
 const { getUser } = require('../controller/user');
 const { default: axios } = require('axios');
+const RequestModel = require('../models/requests');
+const { CONTRACT_URL } = require('../constants');
+const { request } = require('http');
 
-exports.verify = async (user,contractName,contract) => {
+
+
+exports.verify = async (user,contract) => {
     try{
    
-     const result = await getUser(user) ; 
    
-     if(result.walletAddress){
-       const filter = { walletAddress: result.walletAddress , contract : contract }; // Define your filter criteria
-    
-       const checkEntry = await deployments.findOne(filter);
-      
+     const requestDetail = await RequestModel.findOne({contractAddress: contract}) ; 
+     if(requestDetail){
+       const filter = {  contract : contract }; // Define your filter criteria
+      console.log(requestDetail);
       //  console.log(checkEntry);
-      if(!checkEntry){
+      if(requestDetail.USER !== user){
           console.log(`contract owner doesn't match`);
-          return {result : 0}
+          return {result : 0, data: `Contract owner doesn't match`}
       }
       else {
          console.log(`contract matched`); 
-   
+     
          const flattened = path.join(__dirname, '../flattened/'+contract+'.sol');
     
          let contractSource = fs.readFileSync(flattened, 'utf8');
-         const result  = await this.verifyContract(contract,null,contractName,contractSource);  
-         return {result : 1, data : result}
+         const _result  = await this.verifyContract(contract,null,requestDetail.TOKEN_NAME,contractSource);  
+         console.log(_result)
+         if(_result.message == "OK"){
+          await deployments.findOneAndUpdate(
+            { contract: contract },
+            { $set: {
+              verifyId : _result.result 
+            } },
+            { new: true } 
+        );
+
+         }
+         return {result : 1, CONTRACT_URL: CONTRACT_URL[requestDetail.network]+contract , data : _result}
          
       }
      }
      else{
        console.log(`user not found`); 
-       return {result : 0}
+       return {result : 0, data: `Contract not found`}
    
      }
     
@@ -42,7 +56,8 @@ exports.verify = async (user,contractName,contract) => {
     
    } catch (error) {
      console.error('Error:', error.message);
-     return 0;
+     return {result : 0, data: "SEVER ERROR"}
+
    
    }
    
@@ -88,7 +103,7 @@ exports.verify = async (user,contractName,contract) => {
          data : data 
        };
        
-       axios.request(config)
+    return  axios.request(config)
        .then((response) => {
         console.log(response.data);
 

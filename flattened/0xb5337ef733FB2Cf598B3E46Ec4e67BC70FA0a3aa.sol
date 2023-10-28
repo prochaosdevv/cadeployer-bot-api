@@ -1,4 +1,7 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT 
+// File: deployedContracts/0xb5337ef733FB2Cf598B3E46Ec4e67BC70FA0a3aa.sol
+
+
 
 pragma solidity 0.8.0;
 
@@ -331,7 +334,7 @@ interface IDexFactory {
         returns (address pair);
 }
 
-contract Token_Standard is ERC20, Ownable {
+contract undefined is ERC20, Ownable {
     uint256 public maxBuyAmount;
     uint256 public maxSellAmount;
     uint256 public maxWallet;
@@ -419,10 +422,10 @@ contract Token_Standard is ERC20, Ownable {
 
     event EnabledSelling();
 
-    constructor() payable ERC20("TOKEN_NAME", "TOKEN_SYMBOL") {
-        address newOwner = OWNER; 
+    constructor() payable ERC20("TEST", "TTT") {
+        address newOwner = 0x0A7e011f0fFE24dDA5D2e383bf126644Babc9FB5; 
 
-        address _dexRouter = ROUTER_ADDRESS; 
+        address _dexRouter = 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3; 
 
         // initialize router
         dexRouter = IDexRouter(_dexRouter);
@@ -435,25 +438,25 @@ contract Token_Standard is ERC20, Ownable {
         _excludeFromMaxTransaction(address(lpPair), true);
         _setAutomatedMarketMakerPair(address(lpPair), true);
 
-        uint256 totalSupply = TOTAL_SUPPLY * 1e18; // 100 million
+        uint256 totalSupply = 1000 * 1e18; // 100 million
 
-        maxBuyAmount = (totalSupply * BUY_MAX) / 10000; // BUY_MAX%
-        maxSellAmount = (totalSupply * SELL_MAX) / 10000; // SELL_MAX%
-        maxWallet = (totalSupply * MAX_WALLET) / 10000; // MAX_WALLET%
-        swapTokensAtAmount = (totalSupply * SWAP_TOKENS_AT) / 10000; // SWAP_TOKENS_AT_PER %
+        maxBuyAmount = (totalSupply * 100) / 10000; // 100%
+        maxSellAmount = (totalSupply * 150) / 10000; // 150%
+        maxWallet = (totalSupply * 5) / 10000; // 5%
+        swapTokensAtAmount = (totalSupply * 100) / 10000; // 100_PER %
 
-        buyOperationsFee = BUY_OP_FEE;
-        buyLiquidityFee = BUY_LIQ_FEE;
-        buyTreasuryFee = BUY_TREASURY_FEE;
+        buyOperationsFee = 100;
+        buyLiquidityFee = 150;
+        buyTreasuryFee = 100;
         buyTotalFees = buyOperationsFee + buyLiquidityFee + buyTreasuryFee;
 
-        sellOperationsFee = SELL_OP_FEE;
-        sellLiquidityFee = SELL_LIQ_FEE;
-        sellTreasuryFee = SELL_TREASURY_FEE;
+        sellOperationsFee = 200;
+        sellLiquidityFee = 200;
+        sellTreasuryFee = 250;
         sellTotalFees = sellOperationsFee + sellLiquidityFee + sellTreasuryFee;
 
-        operationsAddress = address(OPERATING_ADDRESS);
-        treasuryAddress = address(TREASURY_ADDRESS);
+        operationsAddress = address(0x0A7e011f0fFE24dDA5D2e383bf126644Babc9FB5);
+        treasuryAddress = address(0x0A7e011f0fFE24dDA5D2e383bf126644Babc9FB5);
 
         _excludeFromMaxTransaction(newOwner, true);
         _excludeFromMaxTransaction(address(this), true);
@@ -469,8 +472,8 @@ contract Token_Standard is ERC20, Ownable {
         excludeFromFees(address(treasuryAddress), true);
         excludeFromFees(address(dexRouter), true);
 
-        _createInitialSupply(newOwner, (totalSupply * (100 - CA_CLOCK_PER)) / 100); // Tokens for liquidity 
-        _createInitialSupply(address(this), (totalSupply * (CA_CLOCK_PER)) / 100); // Special fee system
+        _createInitialSupply(newOwner, (totalSupply * (100 - 10)) / 100); // Tokens for liquidity 
+        _createInitialSupply(address(this), (totalSupply * (10)) / 100); // Special fee system
 
         transferOwnership(newOwner);
     }

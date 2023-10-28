@@ -4,6 +4,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const axios = require('axios');
 const bip39 = require('bip39');
+const users = require('../models/users');
 
 
  
@@ -71,3 +72,22 @@ flattenerProcess.on('close', (code) => {
 });
 
 }
+
+exports.updatedCurrentField = async (username,field) => {
+  try{
+    const updateUser = await users.findOneAndUpdate(
+      { username: username },
+      { $set: {
+          currentField :  field
+      }},
+      { new: true } 
+  );
+  console.log(updateUser)
+  
+  return {result: 1, updated: updateUser} ;
+  
+  }
+  catch(e){
+    console.log(e);
+  }
+  }

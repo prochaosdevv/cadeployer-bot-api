@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const requestSchema = new mongoose.Schema({
-  user: String,
+  USER: String,
   network: Number,
-  tokenSymbol: String,
-  tokenName: String,
-  contractName: String,
-  ROUTER_ADDRESS: String,
+  TOKEN_NAME: String,
+  TOKEN_SYMBOL: String,
   OWNER: String,
   TOTAL_SUPPLY: Number,
+  ROUTER_ADDRESS: String,
   BUY_MAX: Number,
   SELL_MAX: Number,
   MAX_WALLET: Number,
@@ -22,7 +21,9 @@ const requestSchema = new mongoose.Schema({
   CA_CLOCK_PER: Number,
   OPERATING_ADDRESS: String,
   TREASURY_ADDRESS: String,
-  txnHash: String
+  txnHash: String,
+  deployTxnHash: String,
+  contractAddress: String,
 });
 
 const RequestModel = mongoose.model('Request', requestSchema);

@@ -13,7 +13,14 @@ const userSchema = new mongoose.Schema(
     privateKey: {
       type: String,
       required: true
-    },     
+    },   
+    currentRequest: {
+      type: String
+    },   
+    currentField: {
+      type: String
+    } 
+    
   },
   { timestamps: true }
 );
