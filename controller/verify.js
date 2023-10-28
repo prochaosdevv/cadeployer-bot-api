@@ -6,7 +6,7 @@ const deployments = require('../models/deployments');
 const { getUser } = require('../controller/user');
 const { default: axios } = require('axios');
 const RequestModel = require('../models/requests');
-const { CONTRACT_URL, API_KEYS } = require('../constants');
+const { CONTRACT_URL, API_KEYS, API_URL } = require('../constants');
 const { request } = require('http');
 
 
@@ -68,7 +68,7 @@ exports.verify = async (user,contract) => {
    
    
     exports.verifyContract = async (address,args,name,network,contractSource) => {
-     const apiEndpoint = process.env.BSCTESTURL; // Etherscan API endpoint
+     const apiEndpoint = API_URL[network]; // Etherscan API endpoint
    
      // Replace these with your contract information
      const contractAddress = address;

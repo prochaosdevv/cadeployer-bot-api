@@ -39,3 +39,11 @@ exports.API_KEYS = {
     [1] : process.env.ETHAPI,
     [42161] : process.env.ARBIAPI
 }
+
+exports.API_URL = {
+    [97] : "https://api-testnet.bscscan.com/api",
+    [56] : "https://api.bscscan.com/api",
+    [1] : "https://api.etherscan.io/api",
+    [42161] : "https://api.arbiscan.io/api"
+}
+
