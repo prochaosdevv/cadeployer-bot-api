@@ -56,7 +56,9 @@ const nextMsg = {
 
 const netwrokName = {
     [56] : "BSC Mainnet",
-    [97] : "BSC Testnet"
+    [97] : "BSC Testnet",
+    [1] : "Ethereum",
+    [42161] : "Arbitrum"
 }
 
 
@@ -65,15 +67,10 @@ const routerMarkup = {
         "inline_keyboard": [         
             [
               {
-                text: "PancakeSwap Testnet 1",
+                text: "PancakeSwap",
                 callback_data: "router_0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3",
 
-              },
-              {
-                text: "PancakeSwap Testnet 2",
-                callback_data: "router_0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3",
-
-              },
+              }
             ]            
         ]
     }, parse_mode: 'html' },
@@ -81,13 +78,45 @@ const routerMarkup = {
         "inline_keyboard": [         
             [
               {
-                text: "PancakeSwap Mainnet 1",
+                text: "PancakeSwap",
                 callback_data: "router_0x10ED43C718714eb63d5aA57B78B54704E256024E",
 
               },
               {
-                text: "PancakeSwap Mainnet 2",
-                callback_data: "router_0x10ED43C718714eb63d5aA57B78B54704E256024E",
+                text: "Uniswap",
+                callback_data: "router_0xB971eF87ede563556b2ED4b1C0b0019111Dd85d2",
+
+              },
+            ]            
+        ]
+    }, parse_mode: 'html' },
+    [1] : {  "reply_markup": {
+        "inline_keyboard": [         
+            [
+              {
+                text: "PancakeSwap",
+                callback_data: "router_0xEfF92A263d31888d860bD50809A8D171709b7b1c",
+
+              },
+              {
+                text: "Uniswap",
+                callback_data: "router_0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+
+              },
+            ]            
+        ]
+    }, parse_mode: 'html' },
+    [42161] : {  "reply_markup": {
+        "inline_keyboard": [         
+            [
+              {
+                text: "PancakeSwap",
+                callback_data: "router_0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb",
+
+              },
+              {
+                text: "Uniswap",
+                callback_data: "router_0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
 
               },
             ]            

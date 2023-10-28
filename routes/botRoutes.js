@@ -50,16 +50,28 @@ bot.onText(/\/verify/, async (msg) => {
         "inline_keyboard": [         
             [
               {
-                text: "BSC Testnet",
-                callback_data: "network_97",
+                text: "Ethereum",
+                callback_data: "network_1",
 
               },
+              {
+                text: "Arbitrum",
+                callback_data: "network_42161",
+
+              },
+            ],
+            [
               {
                 text: "BSC Mainnet",
                 callback_data: "network_56",
 
               },
-            ]            
+              {
+                text: "BSC Testnet",
+                callback_data: "network_97",
+
+              }
+            ]              
         ]
     }, parse_mode: 'html' });
 
