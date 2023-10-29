@@ -266,6 +266,7 @@ async function sendContractNamemsg(chat) {
     const chatId = msg.chat.id;
     const text = msg.text;
     // console.log(text);
+    try{
     if(!uniqueid.includes(chatId+msg.message_id) && text !== "/start" && text !== "/verify"){
       uniqueid.push(chatId+msg.message_id);
       if (msg.reply_to_message && (msg.reply_to_message.text.includes(replyText) || msg.reply_to_message.text.includes(privateReplytext) || msg.reply_to_message.text.includes(verifyReplyText)  )) {
@@ -393,7 +394,7 @@ async function sendContractNamemsg(chat) {
 
           }
         }
-        else    if(msg.reply_to_message.text.includes(privateReplytext)){
+        else if(msg.reply_to_message.text.includes(privateReplytext)){
           let request_id = msg.reply_to_message.text.replace(privateReplytext,"");
   
               let _tmsgid = await bot.sendMessage(chatId, "Please wait... We are confirming the private key.");
@@ -488,7 +489,10 @@ async function sendContractNamemsg(chat) {
         await storeRequestData({username: msg.chat.username , text: text, chatId: chatId, bot})
       }
     }
-
+  }
+  catch(e){
+    console.log("e"+e);
+  }
   })
 
    
