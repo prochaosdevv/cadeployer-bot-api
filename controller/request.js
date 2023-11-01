@@ -202,7 +202,8 @@ exports.UpdateRequest = async (data) => {
         
 
         const request_id = check.currentRequest ;
-
+        const requestDetail = await requestModel.findOne({_id: request_id});
+    
         // console.log(updateData);
         const updatedRequest = await requestModel.findOneAndUpdate(
             { _id: request_id },
@@ -216,7 +217,7 @@ exports.UpdateRequest = async (data) => {
 
         if ('ROUTER_ADDRESS' in updateData.updateData) {
             await updatedCurrentField(username,nextField['ROUTER_ADDRESS']);
-            sendNextMsg(data.bot,data.chatId,nextMsg['ROUTER_ADDRESS'],check.network,request_id);
+            sendNextMsg(data.bot,data.chatId,nextMsg['ROUTER_ADDRESS'],requestDetail.network,request_id);
         }
 
         if (data.FEE) { 
