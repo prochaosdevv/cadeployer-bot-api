@@ -10,7 +10,7 @@ const  DeploymentModel   = require('../models/deployments');
 const { verifyContract } = require('./verify');
 const { symbols, PROVIDER } = require('../constants');
 const RequestModel = require('../models/requests');
-const { FEE_VARIABLE, FEE_EVENTS, FEE_FUNCTIONS, FEE_UPDATE_1, FEE_UPDATE_2, TRADING_VARIABLES, TRADING_ANTISNIPER, TRADING_CONDITIONS_1, TRADING_CONDITIONS_2, TRADING_CONDITIONS_3, TRADING_EVENTS, TRADING_FUNCTIONS, TRADING_VARIABLE_UPDATE_1, TRANSFER_LIMIT_VARIABLES, TRANSFER_LIMIT_FUNCTIONS, TRANSFER_LIMIT_EVENTS, TRANSFER_LIMIT_UPDATE_1, TRANSFER_LIMIT_CONDITION_1, TRANSFER_LIMIT_CONDITION_2, ANTISNIPER_CONDITION_1, ANTISNIPER_CONDITION_2, ANTISNIPER_UPDATE_1, ANTISNIPER_UPDATE_2, ANTISNIPER_FUNCTIONS, ANTISNIPER_EVENTS, ANTISNIPER_VARIABLES, AMM_VARIABLES, AMM_EVENTS, AMM_FUNCTION, AMM_CONDITION_1, AMM_UPDATE_1, AMM_UPDATE_3, AMM_UPDATE_4, AMM_UPDATE_5, AMM_UPDATE_6, AMM_UPDATE_7, AMM_UPDATE_8, AMM_UPDATE_9, AMM_UPDATE_10, AMM_UPDATE_11, AMM_UPDATE_12, AMM_UPDATE_2, BLACKLIST_VARIABLES, BLACKLIST_FUNCTIONS, BLACKLISTED_FUNCTION_1, TRANSFER_DELAY_VARIABLES, TRANSFERDELAY_FUNCTION, TRANSFERDELAY_CONDITION, CA_CLOCK_CONDTION, CA_CLOCK_DEFAULT, TRADING_CONDITIONS_4, ANTISNIPER_CONDITION_3, AMM_INPUT_1, AMM_UPDATE_13, AMM_UPDATE_14, FEE_UPDATE_3, FEE_CONDITION } = require('../contracts/replacements');
+const { FEE_VARIABLE, FEE_EVENTS, FEE_FUNCTIONS, FEE_UPDATE_1, FEE_UPDATE_2, TRADING_VARIABLES, TRADING_ANTISNIPER, TRADING_CONDITIONS_1, TRADING_CONDITIONS_2, TRADING_CONDITIONS_3, TRADING_EVENTS, TRADING_FUNCTIONS, TRADING_VARIABLE_UPDATE_1, TRANSFER_LIMIT_VARIABLES, TRANSFER_LIMIT_FUNCTIONS, TRANSFER_LIMIT_EVENTS, TRANSFER_LIMIT_UPDATE_1, TRANSFER_LIMIT_CONDITION_1, TRANSFER_LIMIT_CONDITION_2, ANTISNIPER_CONDITION_1, ANTISNIPER_CONDITION_2, ANTISNIPER_UPDATE_1, ANTISNIPER_UPDATE_2, ANTISNIPER_FUNCTIONS, ANTISNIPER_EVENTS, ANTISNIPER_VARIABLES, AMM_VARIABLES, AMM_EVENTS, AMM_FUNCTION, AMM_CONDITION_1, AMM_UPDATE_1, AMM_UPDATE_3, AMM_UPDATE_4, AMM_UPDATE_5, AMM_UPDATE_6, AMM_UPDATE_7, AMM_UPDATE_8, AMM_UPDATE_9, AMM_UPDATE_10, AMM_UPDATE_11, AMM_UPDATE_12, AMM_UPDATE_2, BLACKLIST_VARIABLES, BLACKLIST_FUNCTIONS, BLACKLISTED_FUNCTION_1, TRANSFER_DELAY_VARIABLES, TRANSFERDELAY_FUNCTION, TRANSFERDELAY_CONDITION, CA_CLOCK_CONDTION, CA_CLOCK_DEFAULT, TRADING_CONDITIONS_4, ANTISNIPER_CONDITION_3, AMM_INPUT_1, AMM_UPDATE_13, AMM_UPDATE_14, FEE_UPDATE_3, FEE_CONDITION, AMM_CONDITION_2, FEE_CONDITION_2 } = require('../contracts/replacements');
 
 // Set up your Ethereum provider (e.g., Infura)
  
@@ -232,7 +232,7 @@ function findImports(relativePath) {
 }
 
 function getFinalCode(contractSource , data, rerun) {
-  const { network , USER,TRADING ,MESSAGE ,MESSAGE_TEXT, TRADING_BLOCK_LIMIT,SNIPING_BLOCK_LIMIT, FEE , AMM , TRANSFER_LIMIT, ANTISNIPER, BLACKLIST, TRANSFERDELAY, CA_CLOCK,  TOKEN_NAME, TOKEN_SYMBOL , ROUTER_ADDRESS, OWNER, TOTAL_SUPPLY, BUY_MAX,BUY_LIMIT , SELL_LIMIT ,  SELL_MAX, MAX_WALLET, SWAP_TOKENS_AT, BUY_OP_FEE, BUY_LIQ_FEE , BUY_TREASURY_FEE, SELL_OP_FEE, SELL_TREASURY_FEE, SELL_LIQ_FEE, OPERATING_ADDRESS, TREASURY_ADDRESS, CA_CLOCK_PER} = data;
+  const { network , USER,TRADING ,MESSAGE ,MESSAGE_TEXT, TRADING_BLOCK_LIMIT,SNIPING_BLOCK_LIMIT, FEE , AMM , TRANSFER_LIMIT, ANTISNIPER, BLACKLIST, TRANSFERDELAY, CA_CLOCK,  TOKEN_NAME, TOKEN_SYMBOL , ROUTER_ADDRESS, OWNER, TOTAL_SUPPLY, BUY_MAX,BUY_FEE_LIMIT , SELL_FEE_LIMIT ,  SELL_MAX, MAX_WALLET, SWAP_TOKENS_AT, BUY_OP_FEE, BUY_LIQ_FEE , BUY_TREASURY_FEE, SELL_OP_FEE, SELL_TREASURY_FEE, SELL_LIQ_FEE, OPERATING_ADDRESS, TREASURY_ADDRESS, CA_CLOCK_PER} = data;
   // console.log(contractSource);
 
   if(TRADING){
@@ -265,6 +265,7 @@ function getFinalCode(contractSource , data, rerun) {
   contractSource = contractSource.replaceAll('[FEE_UPDATE_2]', FEE_UPDATE_2); 
   contractSource = contractSource.replaceAll('[FEE_UPDATE_3]', FEE_UPDATE_3); 
   contractSource = contractSource.replaceAll('[FEE_CONDITION]', FEE_CONDITION); 
+  contractSource = contractSource.replaceAll('[FEE_CONDITION_2]', FEE_CONDITION_2); 
   
   }
   else{
@@ -275,6 +276,7 @@ function getFinalCode(contractSource , data, rerun) {
     contractSource = contractSource.replaceAll('[FEE_UPDATE_2]', '');
     contractSource = contractSource.replaceAll('[FEE_UPDATE_3]', '');
     contractSource = contractSource.replaceAll('[FEE_CONDITION]', '');
+    contractSource = contractSource.replaceAll('[FEE_CONDITION_2]', '');
     
   }
 
@@ -298,6 +300,7 @@ function getFinalCode(contractSource , data, rerun) {
     contractSource = contractSource.replaceAll('[AMM_UPDATE_13]', AMM_UPDATE_13); 
     contractSource = contractSource.replaceAll('[AMM_INPUT_1]', AMM_INPUT_1); 
     contractSource = contractSource.replaceAll('[AMM_UPDATE_14]', AMM_UPDATE_14); 
+    contractSource = contractSource.replaceAll('[AMM_CONDITION_2]', AMM_CONDITION_2); 
 
     
     }
@@ -321,6 +324,8 @@ function getFinalCode(contractSource , data, rerun) {
       contractSource = contractSource.replaceAll('[AMM_UPDATE_13]', ''); 
       contractSource = contractSource.replaceAll('[AMM_UPDATE_14]', ''); 
       contractSource = contractSource.replaceAll('[AMM_INPUT_1]', ''); 
+      contractSource = contractSource.replaceAll('[AMM_CONDITION_2]', ''); 
+      
 
     }
     
@@ -417,10 +422,10 @@ function getFinalCode(contractSource , data, rerun) {
   contractSource = contractSource.replaceAll('TOTAL_SUPPLY', TOTAL_SUPPLY);
   contractSource = contractSource.replaceAll('BUY_MAX', BUY_MAX);
   contractSource = contractSource.replaceAll('SELL_MAX', SELL_MAX);
-  contractSource = contractSource.replaceAll('BUY_LIMIT', BUY_LIMIT);
+  contractSource = contractSource.replaceAll('BUY_FEE_LIMIT', BUY_FEE_LIMIT);
   contractSource = contractSource.replaceAll('TRADING_BLOCK_LIMIT', TRADING_BLOCK_LIMIT ? TRADING_BLOCK_LIMIT : SNIPING_BLOCK_LIMIT);
   
-  contractSource = contractSource.replaceAll('SELL_LIMIT', SELL_LIMIT);
+  contractSource = contractSource.replaceAll('SELL_FEE_LIMIT', SELL_FEE_LIMIT);
   contractSource = contractSource.replaceAll('MAX_WALLET', MAX_WALLET);
   contractSource = contractSource.replaceAll('SWAP_TOKENS_AT', SWAP_TOKENS_AT);
   const SWAP_TOKENS_AT_PER = parseFloat(SWAP_TOKENS_AT / 10000).toFixed(2)

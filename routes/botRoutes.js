@@ -118,12 +118,12 @@ bot.onText(/\/verify/, async (msg) => {
     else{
       let data = {
         FEE: false,
-        BUY_OP_FEE: 0,
-        BUY_LIQ_FEE: 0,
+        BUY_OP_FEE: 0, 
         BUY_TREASURY_FEE: 0,
         SELL_OP_FEE: 0,
-        SELL_TREASURY_FEE: 0,
-        SELL_LIQ_FEE: 0,
+        SELL_TREASURY_FEE: 0, 
+        BUY_FEE_LIMIT: 0,
+        SELL_FEE_LIMIT: 0,
         OPERATING_ADDRESS: "0x0000000000000000000000000000000000000000",
         TREASURY_ADDRESS: "0x0000000000000000000000000000000000000000",
         
@@ -174,8 +174,8 @@ bot.onText(/\/verify/, async (msg) => {
     else{
       let data = {
         TRANSFER_LIMIT: false, 
-        BUY_LIMIT: 10000,
-        SELL_LIMIT: 10000        
+        BUY_MAX: 10000,
+        SELL_MAX: 10000,           
       };
 
     await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, TRANSFER_LIMITNO : true  , updateData : data});   

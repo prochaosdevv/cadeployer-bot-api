@@ -96,10 +96,8 @@ event UpdatedMaxBuyAmount(uint256 newAmount);
 exports.TRANSFER_LIMIT_UPDATE_1 = `_excludeFromMaxTransaction(newOwner, true);
 _excludeFromMaxTransaction(address(this), true);
 _excludeFromMaxTransaction(address(0xdead), true);
-_excludeFromMaxTransaction(address(operationsAddress), true);
-_excludeFromMaxTransaction(address(treasuryAddress), true);
-_excludeFromMaxTransaction(address(dexRouter), true);
-_excludeFromMaxTransaction(address(lpPair), true);
+[FEE_CONDITION_2]
+[AMM_CONDITION_2]
 maxBuyAmount = (totalSupply * BUY_MAX) / 10000; // BUY_MAX%
 maxSellAmount = (totalSupply * SELL_MAX) / 10000; // SELL_MAX%
 maxWallet = (totalSupply * MAX_WALLET) / 10000; // MAX_WALLET%
@@ -108,11 +106,11 @@ maxWallet = (totalSupply * MAX_WALLET) / 10000; // MAX_WALLET%
 exports.TRANSFER_LIMIT_FUNCTIONS = `function updateMaxBuyAmount(uint256 newNum) external onlyOwner {
     uint256 _totalSupply = totalSupply();
     require(
-        newNum >= ((_totalSupply * 5) / 1000) / 1e18,
+        newNum >= ((_totalSupply * 5) / 100000) / 1e18,
         "Cannot set max buy amount lower than 0.5%"
     );
     require(
-        newNum <= ((_totalSupply * 2) / 100) / 1e18,
+        newNum <= ((_totalSupply * 2) / 10000) / 1e18,
         "Cannot set buy sell amount higher than 2%"
     );
     maxBuyAmount = newNum * (10**18);
@@ -300,6 +298,8 @@ bool private taxFree = true; `
 exports.FEE_CONDITION = `&& !_isExcludedFromFees[from] &&
 !_isExcludedFromFees[to]` ;
 
+exports.FEE_CONDITION_2 = `_excludeFromMaxTransaction(address(operationsAddress), true);
+_excludeFromMaxTransaction(address(treasuryAddress), true);` ;
 
 exports.FEE_EVENTS = `
 event UpdatedOperationsAddress(address indexed newWallet);
@@ -335,7 +335,7 @@ function updateBuyFees(
     [AMM_UPDATE_3]
     buyTreasuryFee = _treasuryFee;
     buyTotalFees = buyOperationsFee [AMM_UPDATE_1] + buyTreasuryFee;
-    require(buyTotalFees <= BUY_LIMIT, "Must keep fees at 20% or less");
+    require(buyTotalFees <= BUY_FEE_LIMIT, "Must keep fees at 20% or less");
 }
 
 function updateSellFees(
@@ -347,7 +347,7 @@ function updateSellFees(
     [AMM_UPDATE_4]
     sellTreasuryFee = _treasuryFee;
     sellTotalFees = sellOperationsFee [AMM_UPDATE_2] + sellTreasuryFee;
-    require(sellTotalFees <= SELL_LIMIT, "Must keep fees at 30% or less");
+    require(sellTotalFees <= SELL_FEE_LIMIT, "Must keep fees at 30% or less");
 }
 
 function excludeFromFees(address account, bool excluded) public onlyOwner {
@@ -568,6 +568,8 @@ function emergencyUpdateRouter(address router, bool _swapEnabled) external onlyO
 
 
 exports.AMM_CONDITION_1 = `require(lpPair != address(0), "Pair not created");`
+exports.AMM_CONDITION_2 =  `_excludeFromMaxTransaction(address(dexRouter), true);
+_excludeFromMaxTransaction(address(lpPair), true);`
 
 exports.AMM_VARIABLES = `
 bool private swapping;
