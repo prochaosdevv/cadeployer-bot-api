@@ -174,13 +174,14 @@ function _excludeFromMaxTransaction(address updAds, bool isExcluded)
 
 exports.TRANSFER_LIMIT_CONDITION_1 = `_excludeFromMaxTransaction(pair, value);`
 
+ 
+
 exports.TRANSFER_LIMIT_CONDITION_2 = ` if (limitsInEffect) {
     if (
         from != owner() &&
         to != owner() &&
-        to != address(0xdead) &&
-        !_isExcludedFromFees[from] &&
-        !_isExcludedFromFees[to]
+        to != address(0xdead) 
+        [FEE_CONDITION]
     ) {
 
         [TRANSFERDELAY_CONDITION]
@@ -295,6 +296,9 @@ uint256 public tokensForOperations;
 uint256 public tokensForTreasury;
 
 bool private taxFree = true; `
+
+exports.FEE_CONDITION = `&& !_isExcludedFromFees[from] &&
+!_isExcludedFromFees[to]` ;
 
 
 exports.FEE_EVENTS = `
