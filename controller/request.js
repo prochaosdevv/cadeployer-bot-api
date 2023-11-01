@@ -26,9 +26,7 @@ const nextField = {
     TRANSFER_LIMIT: "SELL_MAX",  
     SELL_MAX : "BUY_MAX",
     BUY_MAX: "MAX_WALLET", 
-    MAX_WALLET: "SELL_LIMIT",
-    SELL_LIMIT: "BUY_LIMIT",
-    BUY_LIMIT: "TRANSFERDELAY",
+    MAX_WALLET:  "TRANSFERDELAY",
     TRANSFERDELAY: "ANTISNIPER",
     ANTISNIPER : "SNIPING_BLOCK_LIMIT",
     SNIPING_BLOCK_LIMIT :  "BLACKLIST",
@@ -236,8 +234,8 @@ exports.UpdateRequest = async (data) => {
         await updatedCurrentField(username,nextField['TRANSFER_LIMIT']);
         sendNextMsg(data.bot,data.chatId,nextMsg['TRANSFER_LIMIT'],data.network,request_id);
       }else if(data.TRANSFER_LIMITNO){
-        await updatedCurrentField(username,nextField['BUY_LIMIT']);
-    sendNextMsg(data.bot,data.chatId,nextMsg['BUY_LIMIT'],data.network,request_id);
+        await updatedCurrentField(username,nextField['MAX_WALLET']);
+    sendNextMsg(data.bot,data.chatId,nextMsg['MAX_WALLET'],data.network,request_id);
 
        
     }
