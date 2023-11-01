@@ -32,16 +32,19 @@ function launch(uint256 blocksForPenalty) external onlyOwner {
 
 exports.TRADING_EVENTS = `event EnabledTrading();`
 
-
-
-exports.TRADING_CONDITIONS_1 = `require(!tradingActive, "Cannot update after trading is functional");`
-
-exports.TRADING_CONDITIONS_2 = ` if (!tradingActive) {
+exports.FEE_UPDATE_3 = `if (!tradingActive) {
     require(
         _isExcludedFromFees[from] || _isExcludedFromFees[to],
         "Trading is not active."
     );
-}
+}`
+
+exports.TRADING_CONDITIONS_1 = `require(!tradingActive, "Cannot update after trading is functional");`
+
+exports.TRADING_CONDITIONS_2 = ` 
+
+
+[FEE_UPDATE_3]
 
 if ([ANTISNIPER_CONDITION_1]tradingActive) {
     require(
