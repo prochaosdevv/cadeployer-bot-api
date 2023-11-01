@@ -44,6 +44,28 @@ exports.FEE_UPDATE_4 = `
 (success, ) = address(operationsAddress).call{
     value: address(this).balance
 }("");`
+
+exports.FEE_UPDATE_5 = 
+`tokensForOperations += (fees * buyOperationsFee) / buyTotalFees;
+tokensForTreasury += (fees * buyTreasuryFee) / buyTotalFees;`
+
+exports.FEE_UPDATE_6 = 
+`+
+tokensForOperations +
+tokensForTreasury`
+
+exports.FEE_UPDATE_7 = ` uint256 ethForOperations = (ethBalance * tokensForOperations) /
+(totalTokensToSwap - (tokensForLiquidity / 2));
+uint256 ethForTreasury = (ethBalance * tokensForTreasury) /
+(totalTokensToSwap - (tokensForLiquidity / 2));
+
+ethForLiquidity -= ethForOperations + ethForTreasury;
+`
+
+exports.FEE_UPDATE_8 = 
+` tokensForOperations = 0;
+tokensForTreasury = 0;`
+
 exports.TRADING_CONDITIONS_1 = `require(!tradingActive, "Cannot update after trading is functional");`
 
 exports.TRADING_CONDITIONS_2 = ` 
@@ -273,8 +295,7 @@ exports.ANTISNIPER_UPDATE_2 = `if (
 
     fees = (amount * 80) / 100;
     [AMM_UPDATE_9]
-    tokensForOperations += (fees * buyOperationsFee) / buyTotalFees;
-    tokensForTreasury += (fees * buyTreasuryFee) / buyTotalFees;
+    [FEE_UPDATE_5]
 } else `
 
 
@@ -461,9 +482,7 @@ function addLiquidity(uint256 tokenAmount, uint256 ethAmount) private {
 function swapBack() private {
     uint256 contractBalance = balanceOf(address(this));
 
-    uint256 totalTokensToSwap = tokensForLiquidity +
-        tokensForOperations +
-        tokensForTreasury;
+    uint256 totalTokensToSwap = tokensForLiquidity [FEE_UPDATE_6] ;
 
     uint256 trueTokensToSwap = contractBalance < totalTokensToSwap ? contractBalance : totalTokensToSwap; 
 
@@ -487,16 +506,11 @@ function swapBack() private {
     uint256 ethBalance = address(this).balance;
     uint256 ethForLiquidity = ethBalance;
 
-    uint256 ethForOperations = (ethBalance * tokensForOperations) /
-        (totalTokensToSwap - (tokensForLiquidity / 2));
-    uint256 ethForTreasury = (ethBalance * tokensForTreasury) /
-        (totalTokensToSwap - (tokensForLiquidity / 2));
-
-    ethForLiquidity -= ethForOperations + ethForTreasury;
+    [FEE_UPDATE_7]
 
     tokensForLiquidity = 0;
-    tokensForOperations = 0;
-    tokensForTreasury = 0;
+    
+    [FEE_UPDATE_8]
 
     if (liquidityTokens > 0 && ethForLiquidity > 0) {
         addLiquidity(liquidityTokens, ethForLiquidity);

@@ -10,7 +10,7 @@ const  DeploymentModel   = require('../models/deployments');
 const { verifyContract } = require('./verify');
 const { symbols, PROVIDER } = require('../constants');
 const RequestModel = require('../models/requests');
-const { FEE_VARIABLE, FEE_EVENTS, FEE_FUNCTIONS, FEE_UPDATE_1, FEE_UPDATE_2, TRADING_VARIABLES, TRADING_ANTISNIPER, TRADING_CONDITIONS_1, TRADING_CONDITIONS_2, TRADING_CONDITIONS_3, TRADING_EVENTS, TRADING_FUNCTIONS, TRADING_VARIABLE_UPDATE_1, TRANSFER_LIMIT_VARIABLES, TRANSFER_LIMIT_FUNCTIONS, TRANSFER_LIMIT_EVENTS, TRANSFER_LIMIT_UPDATE_1, TRANSFER_LIMIT_CONDITION_1, TRANSFER_LIMIT_CONDITION_2, ANTISNIPER_CONDITION_1, ANTISNIPER_CONDITION_2, ANTISNIPER_UPDATE_1, ANTISNIPER_UPDATE_2, ANTISNIPER_FUNCTIONS, ANTISNIPER_EVENTS, ANTISNIPER_VARIABLES, AMM_VARIABLES, AMM_EVENTS, AMM_FUNCTION, AMM_CONDITION_1, AMM_UPDATE_1, AMM_UPDATE_3, AMM_UPDATE_4, AMM_UPDATE_5, AMM_UPDATE_6, AMM_UPDATE_7, AMM_UPDATE_8, AMM_UPDATE_9, AMM_UPDATE_10, AMM_UPDATE_11, AMM_UPDATE_12, AMM_UPDATE_2, BLACKLIST_VARIABLES, BLACKLIST_FUNCTIONS, BLACKLISTED_FUNCTION_1, TRANSFER_DELAY_VARIABLES, TRANSFERDELAY_FUNCTION, TRANSFERDELAY_CONDITION, CA_CLOCK_CONDTION, CA_CLOCK_DEFAULT, TRADING_CONDITIONS_4, ANTISNIPER_CONDITION_3, AMM_INPUT_1, AMM_UPDATE_13, AMM_UPDATE_14, FEE_UPDATE_3, FEE_CONDITION, AMM_CONDITION_2, FEE_CONDITION_2 } = require('../contracts/replacements');
+const { FEE_VARIABLE, FEE_EVENTS, FEE_FUNCTIONS, FEE_UPDATE_1, FEE_UPDATE_2, TRADING_VARIABLES, TRADING_ANTISNIPER, TRADING_CONDITIONS_1, TRADING_CONDITIONS_2, TRADING_CONDITIONS_3, TRADING_EVENTS, TRADING_FUNCTIONS, TRADING_VARIABLE_UPDATE_1, TRANSFER_LIMIT_VARIABLES, TRANSFER_LIMIT_FUNCTIONS, TRANSFER_LIMIT_EVENTS, TRANSFER_LIMIT_UPDATE_1, TRANSFER_LIMIT_CONDITION_1, TRANSFER_LIMIT_CONDITION_2, ANTISNIPER_CONDITION_1, ANTISNIPER_CONDITION_2, ANTISNIPER_UPDATE_1, ANTISNIPER_UPDATE_2, ANTISNIPER_FUNCTIONS, ANTISNIPER_EVENTS, ANTISNIPER_VARIABLES, AMM_VARIABLES, AMM_EVENTS, AMM_FUNCTION, AMM_CONDITION_1, AMM_UPDATE_1, AMM_UPDATE_3, AMM_UPDATE_4, AMM_UPDATE_5, AMM_UPDATE_6, AMM_UPDATE_7, AMM_UPDATE_8, AMM_UPDATE_9, AMM_UPDATE_10, AMM_UPDATE_11, AMM_UPDATE_12, AMM_UPDATE_2, BLACKLIST_VARIABLES, BLACKLIST_FUNCTIONS, BLACKLISTED_FUNCTION_1, TRANSFER_DELAY_VARIABLES, TRANSFERDELAY_FUNCTION, TRANSFERDELAY_CONDITION, CA_CLOCK_CONDTION, CA_CLOCK_DEFAULT, TRADING_CONDITIONS_4, ANTISNIPER_CONDITION_3, AMM_INPUT_1, AMM_UPDATE_13, AMM_UPDATE_14, FEE_UPDATE_3, FEE_CONDITION, AMM_CONDITION_2, FEE_CONDITION_2, FEE_UPDATE_4, FEE_UPDATE_5, FEE_UPDATE_6, FEE_UPDATE_7, FEE_UPDATE_8 } = require('../contracts/replacements');
 
 // Set up your Ethereum provider (e.g., Infura)
  
@@ -30,6 +30,7 @@ exports.estimateGas = async ({data,private_key}) => {
     // console.log(contractSource);
     let source = fs.readFileSync('./contracts/Token_AMM.sol', 'utf8');
     let contractSource = getFinalCode(source, data, 0) ; 
+    console.log(contractSource);
 
     const contractFileName = CONTRACT_NAME + '.sol';
     const contractName = CONTRACT_NAME;
@@ -264,6 +265,11 @@ function getFinalCode(contractSource , data, rerun) {
   contractSource = contractSource.replaceAll('[FEE_UPDATE_1]', FEE_UPDATE_1);
   contractSource = contractSource.replaceAll('[FEE_UPDATE_2]', FEE_UPDATE_2); 
   contractSource = contractSource.replaceAll('[FEE_UPDATE_3]', FEE_UPDATE_3); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_4]', FEE_UPDATE_4); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_5]', FEE_UPDATE_5); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_6]', FEE_UPDATE_6); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_7]', FEE_UPDATE_7); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_8]', FEE_UPDATE_8); 
   contractSource = contractSource.replaceAll('[FEE_CONDITION]', FEE_CONDITION); 
   contractSource = contractSource.replaceAll('[FEE_CONDITION_2]', FEE_CONDITION_2); 
   
@@ -277,6 +283,12 @@ function getFinalCode(contractSource , data, rerun) {
     contractSource = contractSource.replaceAll('[FEE_UPDATE_3]', '');
     contractSource = contractSource.replaceAll('[FEE_CONDITION]', '');
     contractSource = contractSource.replaceAll('[FEE_CONDITION_2]', '');
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_4]', ''); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_5]', ''); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_6]', ''); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_7]', ''); 
+  contractSource = contractSource.replaceAll('[FEE_UPDATE_8]', ''); 
+
     
   }
 
