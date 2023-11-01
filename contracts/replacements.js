@@ -39,6 +39,11 @@ exports.FEE_UPDATE_3 = `if (!tradingActive) {
     );
 }`
 
+exports.FEE_UPDATE_4 = `
+(success, ) = address(treasuryAddress).call{value: ethForTreasury}("");
+(success, ) = address(operationsAddress).call{
+    value: address(this).balance
+}("");`
 exports.TRADING_CONDITIONS_1 = `require(!tradingActive, "Cannot update after trading is functional");`
 
 exports.TRADING_CONDITIONS_2 = ` 
@@ -497,10 +502,7 @@ function swapBack() private {
         addLiquidity(liquidityTokens, ethForLiquidity);
     }
 
-    (success, ) = address(treasuryAddress).call{value: ethForTreasury}("");
-    (success, ) = address(operationsAddress).call{
-        value: address(this).balance
-    }("");
+    [FEE_UPDATE_4]
 }
 
 
