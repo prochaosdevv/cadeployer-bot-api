@@ -217,7 +217,7 @@ exports.UpdateRequest = async (data) => {
 
         if ('ROUTER_ADDRESS' in updateData.updateData) {
             await updatedCurrentField(username,nextField['ROUTER_ADDRESS']);
-            sendNextMsg(data.bot,data.chatId,nextMsg['ROUTER_ADDRESS'],requestDetail.network,request_id);
+            sendNextMsg(data.bot,data.chatId,nextMsg['ROUTER_ADDRESS'],data.network,request_id);
         }
 
         if (data.FEE) { 
@@ -281,7 +281,7 @@ exports.UpdateRequest = async (data) => {
 
 if (data.AMM) { 
   await updatedCurrentField(username,nextField['AMM']);
-  sendNextMsg(data.bot,data.chatId,nextMsg['AMM'],data.network,request_id);
+  sendNextMsg(data.bot,data.chatId,nextMsg['AMM'],requestDetail.network,request_id);
  
 }
 
@@ -346,7 +346,7 @@ async function sendNextMsg(bot,chatId,msg,network,requestId){
     try{
         if(msg == "ROUTER_ADDRESS"){
       
-            bot.sendMessage(chatId, "Please choose a router for the token liquidity"+network , routerMarkup[network]);            
+            bot.sendMessage(chatId, "Please choose a router for the token liquidity" , routerMarkup[network]);            
         } 
         
         else if(msg == "TRADING"){      
