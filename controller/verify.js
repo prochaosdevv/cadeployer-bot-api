@@ -10,7 +10,39 @@ const { CONTRACT_URL, API_KEYS, API_URL } = require('../constants');
 const { request } = require('http');
 
 
+exports.verifyOffline = async (TOKEN_NAME,contract) => {
+  try{
+   
+    
+    console.log(`contract matched`); 
 
+    const flattened = path.join(__dirname, '../flattened/'+contract+'.sol');
+
+    let contractSource = fs.readFileSync(flattened, 'utf8');
+    const _result  = await this.verifyContract(contract,null,TOKEN_NAME,97,contractSource);  
+    console.log(_result)
+    if(_result.message == "OK"){
+     await deployments.findOneAndUpdate(
+       { contract: contract },
+       { $set: {
+         verifyId : _result.result 
+       } },
+       { new: true } 
+   );
+
+    }
+    return {result : 1, CONTRACT_URL: contract , data : _result}
+     
+
+
+
+} catch (error) {
+console.error('Error:', error.message);
+return {result : 0, data: "SEVER ERROR"}
+
+
+}
+}
 exports.verify = async (user,contract) => {
     try{
    

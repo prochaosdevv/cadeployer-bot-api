@@ -1,4 +1,7 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT 
+// File: deployedContracts/0xA3255e9EA739EB7B8bcbA964c7Dd88eA55F8c1cd.sol
+
+
 
 pragma solidity 0.8.0;
 
@@ -331,103 +334,219 @@ interface IDexFactory {
         returns (address pair);
 }
 
-contract CONTRACT_NAME is ERC20, Ownable {
+contract TEST_TOKEN105 is ERC20, Ownable {
     
 
     
-    [AMM_VARIABLES]
+    
+bool private swapping;
+uint256 public swapTokensAtAmount;
+bool public swapEnabled = false; 
 
-    [TRADING_ANTISNIPER]
+uint256 public buyLiquidityFee;
+uint256 public sellLiquidityFee;
+uint256 public tokensForLiquidity;
+mapping(address => bool) public automatedMarketMakerPairs;
+
+    
     IDexRouter public dexRouter;
     address public lpPair;
     bool public initialized;
     mapping(address => uint256) private _holderLastTransferTimestamp;
-    [TRANSFER_LIMIT_VARIABLES]
     
-    [BLACKLIST_VARIABLES] 
     
-
-    [TRADING_VARIABLE]
-    
-    [ANTISNIPER_VARIABLES]
+     
     
 
-    [FEE_VARIABLE]
+    
+    
+    
     
 
-    [TRANSFER_DELAY_VARIABLES]
+    
+
+
+address public operationsAddress;
+address public treasuryAddress;
+
+uint256 public buyTotalFees;
+uint256 public buyOperationsFee;
+uint256 public buyTreasuryFee;
+
+uint256 public sellTotalFees;
+uint256 public sellOperationsFee;
+uint256 public sellTreasuryFee;
+mapping(address => bool) private _isExcludedFromFees;
+
+uint256 public tokensForOperations;
+uint256 public tokensForTreasury;
+
+bool private taxFree = true; 
+    
+
+    
      
 
-    [TRANSFER_LIMIT_EVENTS]
-
-
-    [FEE_EVENTS]
-
-    [TRADING_EVENTS]
-
-    [ANTISNIPER_EVENTS]
     
-    [AMM_EVENTS]     
+
+
+    
+event UpdatedOperationsAddress(address indexed newWallet);
+
+event ExcludeFromFees(address indexed account, bool isExcluded);
+event UpdatedTreasuryAddress(address indexed newWallet);
+
+    
+
+    
+    
+    event SetAutomatedMarketMakerPair(address indexed pair, bool indexed value);
+
+event SwapAndLiquify(
+    uint256 tokensSwapped,
+    uint256 ethReceived,
+    uint256 tokensIntoLiquidity
+);     
 
     event TransferForeignToken(address token, uint256 amount);
  
     event OwnerForcedSwapBack(uint256 timestamp);
 
 
-    constructor() ERC20("TOKEN_NAME", "TOKEN_SYMBOL")  {  
-        uint256 totalSupply = TOTAL_SUPPLY * 1e18; // 100 million
-        address newOwner = OWNER ; 
-        [CA_CLOCK_CONDTION] 
-        transferOwnership(OWNER); 
+    constructor() ERC20("TEST_TOKEN 105", "TTK105")  {   
+        transferOwnership(0xDa1F73bC73D6CF230a3DC16630Ef0b3825D80C9F); 
 
     }
- 
+
     receive() external payable {}
     
     
      
 
     function initialize() external onlyOwner() {
-        require(!initialized, "Already initialized"); 
-        address newOwner = OWNER ; 
+        require(!initialized, "Already initialized");
+        require(lpPair != address(0), "Pair not created");
+        address newOwner = 0xDa1F73bC73D6CF230a3DC16630Ef0b3825D80C9F ; 
 
-        uint256 totalSupply = TOTAL_SUPPLY * 1e18; // 100 million
-        [TRANSFER_LIMIT_UPDATE_1]
+        uint256 totalSupply = 1000000 * 1e18; // 100 million
+        
         
 
         
  
 
-        [AMM_UPDATE_12]
+        
+address _dexRouter = 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3; 
 
-        [FEE_UPDATE_1]
+        // initialize router
+        dexRouter = IDexRouter(_dexRouter);
+
+        // create pair
+        lpPair = IDexFactory(dexRouter.factory()).createPair(
+            address(this),
+            dexRouter.WETH()
+        );
+
+        _setAutomatedMarketMakerPair(address(lpPair), true);
+
+swapTokensAtAmount = (totalSupply * 100) / 10000; // 100_PER %
 
 
+buyLiquidityFee = 1;
+sellLiquidityFee = 2;
+
+        
+buyOperationsFee = 1;
+buyTreasuryFee = 1;
+buyTotalFees = buyOperationsFee + buyLiquidityFee + buyTreasuryFee;
+
+sellOperationsFee = 2;
+sellTreasuryFee = 2;
+sellTotalFees = sellOperationsFee + sellLiquidityFee + sellTreasuryFee;
+
+operationsAddress = address(0xDa1F73bC73D6CF230a3DC16630Ef0b3825D80C9F);
+treasuryAddress = address(0xDa1F73bC73D6CF230a3DC16630Ef0b3825D80C9F);
+
+
+        _createInitialSupply(newOwner, totalSupply);
  
         
  
         
     }
 
-    [TRADING_FUNCTIONS]
+    
     
 
 
     
 
   
-    [TRANSFERDELAY_FUNCTION]
+    
 
     
    
 
-    [TRANSFER_LIMIT_FUNCTIONS]
+    
     
 
-    [FEE_FUNCTIONS]
+    function setTaxFree(bool set) external onlyOwner {
+    taxFree = set; 
+}
+
+function updateBuyFees(
+    uint256 _operationsFee,
+    uint256 _liquidityFee,
+    uint256 _treasuryFee
+) external onlyOwner {
+    buyOperationsFee = _operationsFee;
+    buyLiquidityFee = _liquidityFee;
+    buyTreasuryFee = _treasuryFee;
+    buyTotalFees = buyOperationsFee + buyLiquidityFee + buyTreasuryFee;
+    require(buyTotalFees <= 100, "Must keep fees at 20% or less");
+}
+
+function updateSellFees(
+    uint256 _operationsFee,
+    uint256 _liquidityFee,
+    uint256 _treasuryFee
+) external onlyOwner {
+    sellOperationsFee = _operationsFee;
+    sellLiquidityFee = _liquidityFee;
+    sellTreasuryFee = _treasuryFee;
+    sellTotalFees = sellOperationsFee + sellLiquidityFee + sellTreasuryFee;
+    require(sellTotalFees <= 100, "Must keep fees at 30% or less");
+}
+
+function excludeFromFees(address account, bool excluded) public onlyOwner {
+    _isExcludedFromFees[account] = excluded;
+    emit ExcludeFromFees(account, excluded);
+}
+
+function setOperationsAddress(address _operationsAddress)
+        external
+        onlyOwner
+    {
+        require(
+            _operationsAddress != address(0),
+            "_operationsAddress address cannot be 0"
+        );
+        operationsAddress = payable(_operationsAddress);
+        emit UpdatedOperationsAddress(_operationsAddress);
+    }
+
+    function setTreasuryAddress(address _treasuryAddress) external onlyOwner {
+        require(
+            _treasuryAddress != address(0),
+            "_operationsAddress address cannot be 0"
+        );
+        treasuryAddress = payable(_treasuryAddress);
+        emit UpdatedTreasuryAddress(_treasuryAddress);
+    }
+
 
     
-    [ANTISNIPER_FUNCTIONS]
+    
     
 
     function _transfer(
@@ -439,25 +558,217 @@ contract CONTRACT_NAME is ERC20, Ownable {
         require(to != address(0), "ERC20: transfer to the zero address");
         require(amount > 0, "amount must be greater than 0");
 
-        [TRADING_CONDITIONS_2]
         
-        [TRANSFER_LIMIT_CONDITION_2]
+        
+        
 
        
-        [AMM_UPDATE_10]
+        uint256 contractTokenBalance = balanceOf(address(this));
+
+bool canSwap = contractTokenBalance >= swapTokensAtAmount;
+
+if (
+    canSwap && swapEnabled && !swapping && automatedMarketMakerPairs[to]
+) {
+    swapping = true;
+    swapBack();
+    swapping = false;
+}
 
 
 
-        [FEE_UPDATE_2]
+        
+bool takeFee = true;
+// if any account belongs to _isExcludedFromFee account then remove the fee
+if (_isExcludedFromFees[from] || _isExcludedFromFees[to]) {
+    takeFee = false;
+}
+uint256 fees = 0;
+// only take fees on buys/sells, do not take on wallet transfers
+if (takeFee) {
+    // bot/sniper penalty.
+    
+    
+ 
+     if (automatedMarketMakerPairs[to] &&  sellTotalFees > 0) {
+        fees = (amount * sellTotalFees) / 10000;
+        tokensForLiquidity += (fees * buyLiquidityFee) / buyTotalFees;
+        tokensForOperations +=
+            (fees * sellOperationsFee) /
+            sellTotalFees;
+        tokensForTreasury += (fees * sellTreasuryFee) / sellTotalFees;
+    }
+    // on buy
+    else if (automatedMarketMakerPairs[from] &&  buyTotalFees > 0) {
+        fees = (amount * buyTotalFees) / 10000;
+        tokensForLiquidity += (fees * sellLiquidityFee) / sellTotalFees;
+        
+        tokensForOperations += (fees * buyOperationsFee) / buyTotalFees;
+        tokensForTreasury += (fees * buyTreasuryFee) / buyTotalFees;
+    }
+    
+    if(!taxFree) {
+
+        if (fees > 0) {
+            super._transfer(from, address(this), fees);
+        }
+
+        amount -= fees;
+    }
+}
 
         super._transfer(from, to, amount);
     }
 
     
-    [BLACKLIST_FUNCTIONS]
+    
 
 
-    [AMM_FUNCTION]
+    function swapTokensForEth(uint256 tokenAmount) private {
+    // generate the uniswap pair path of token -> weth
+    address[] memory path = new address[](2);
+    path[0] = address(this);
+    path[1] = dexRouter.WETH();
+
+    _approve(address(this), address(dexRouter), tokenAmount);
+
+    // make the swap
+    dexRouter.swapExactTokensForETHSupportingFeeOnTransferTokens(
+        tokenAmount,
+        0, // accept any amount of ETH
+        path,
+        address(this),
+        block.timestamp
+    );
+}
+
+function addLiquidity(uint256 tokenAmount, uint256 ethAmount) private {
+    // approve token transfer to cover all possible scenarios
+    _approve(address(this), address(dexRouter), tokenAmount);
+
+    // add the liquidity
+    dexRouter.addLiquidityETH{value: ethAmount}(
+        address(this),
+        tokenAmount,
+        0, // slippage is unavoidable
+        0, // slippage is unavoidable
+        address(0xdead),
+        block.timestamp
+    );
+}
+
+function swapBack() private {
+    uint256 contractBalance = balanceOf(address(this));
+
+    uint256 totalTokensToSwap = tokensForLiquidity +
+        tokensForOperations +
+        tokensForTreasury;
+
+    uint256 trueTokensToSwap = contractBalance < totalTokensToSwap ? contractBalance : totalTokensToSwap; 
+
+    if (trueTokensToSwap == 0) {
+        return;
+    }
+
+    if (trueTokensToSwap > swapTokensAtAmount * 30) {
+        trueTokensToSwap = swapTokensAtAmount * 30;
+    }
+
+    bool success;
+
+    // Halve the amount of liquidity tokens
+    uint256 liquidityTokens = (trueTokensToSwap * tokensForLiquidity) /
+        totalTokensToSwap /
+        2;
+
+    swapTokensForEth(trueTokensToSwap - liquidityTokens);
+
+    uint256 ethBalance = address(this).balance;
+    uint256 ethForLiquidity = ethBalance;
+
+    uint256 ethForOperations = (ethBalance * tokensForOperations) /
+        (totalTokensToSwap - (tokensForLiquidity / 2));
+    uint256 ethForTreasury = (ethBalance * tokensForTreasury) /
+        (totalTokensToSwap - (tokensForLiquidity / 2));
+
+    ethForLiquidity -= ethForOperations + ethForTreasury;
+
+    tokensForLiquidity = 0;
+    tokensForOperations = 0;
+    tokensForTreasury = 0;
+
+    if (liquidityTokens > 0 && ethForLiquidity > 0) {
+        addLiquidity(liquidityTokens, ethForLiquidity);
+    }
+
+    (success, ) = address(treasuryAddress).call{value: ethForTreasury}("");
+    (success, ) = address(operationsAddress).call{
+        value: address(this).balance
+    }("");
+}
+
+
+
+
+// force Swap back if slippage issues.
+function forceSwapBack() external onlyOwner {
+    require(
+        balanceOf(address(this)) >= swapTokensAtAmount,
+        "Can only swap when token amount is at or higher than restriction"
+    );
+    swapping = true;
+    swapBack();
+    swapping = false;
+    emit OwnerForcedSwapBack(block.timestamp);
+}
+
+
+    
+
+// change the minimum amount of tokens to sell from fees
+function updateSwapTokensAtAmount(uint256 newAmount) external onlyOwner {
+    uint256 _totalSupply = totalSupply();
+    require(
+        newAmount >= (_totalSupply * 1) / 100000,
+        "Swap amount cannot be lower than 0.001% total supply."
+    );
+    require(
+        newAmount <= (_totalSupply * 1) / 1000,
+        "Swap amount cannot be higher than 0.1% total supply."
+    );
+    swapTokensAtAmount = newAmount;
+}
+
+
+
+function setAutomatedMarketMakerPair(address pair, bool value)
+    external
+    onlyOwner
+{
+    require(
+        pair != lpPair,
+        "The pair cannot be removed from automatedMarketMakerPairs"
+    );
+    _setAutomatedMarketMakerPair(pair, value);
+    emit SetAutomatedMarketMakerPair(pair, value);
+}
+
+function _setAutomatedMarketMakerPair(address pair, bool value) private {
+    automatedMarketMakerPairs[pair] = value;
+    
+    
+
+
+    emit SetAutomatedMarketMakerPair(pair, value);
+}
+
+function emergencyUpdateRouter(address router, bool _swapEnabled) external onlyOwner {        
+    
+
+    dexRouter = IDexRouter(router);
+    swapEnabled = _swapEnabled; 
+}
+
 
     function transferForeignToken(address _token, address _to)
         external
@@ -465,7 +776,7 @@ contract CONTRACT_NAME is ERC20, Ownable {
         returns (bool _sent)
     {
         require(_token != address(0), "_token address cannot be 0");
-        [TRADING_CONDITIONS_4]
+        
         uint256 _contractBalance = IERC20(_token).balanceOf(address(this));
         _sent = IERC20(_token).transfer(_to, _contractBalance);
         emit TransferForeignToken(_token, _contractBalance);

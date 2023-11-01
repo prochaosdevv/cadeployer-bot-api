@@ -563,13 +563,13 @@ abstract contract Ownable is Context {
     }
 }
 
-// File: contracts/Token_Standard.sol
+// File: contracts/CONTRACT_NAME.sol
 
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.0;
 
 
-contract Token_Standard is ERC20, Ownable {
+contract CONTRACT_NAME is ERC20, Ownable {
     constructor()
         ERC20("TOKEN_NAME", "TOKEN_SYMBOL")
     {

@@ -7,6 +7,8 @@ const requestSchema = new mongoose.Schema({
   TOKEN_SYMBOL: String,
   OWNER: String,
   TOTAL_SUPPLY: Number,
+  TRADING_CONTROLS: Boolean,
+  TRADING_BLOCK_LIMIT: Number,
   ROUTER_ADDRESS: String,
   BUY_MAX: Number,
   SELL_MAX: Number,
@@ -24,6 +26,19 @@ const requestSchema = new mongoose.Schema({
   txnHash: String,
   deployTxnHash: String,
   contractAddress: String,
+  BUY_LIMIT: Number,
+  SELL_LIMIT: Number,
+  TRADING_BLOCK_LIMIT: Number,
+  FEE: Boolean,
+  TRADING: Boolean,
+  AMM: Boolean,
+  TRANSFER_LIMIT: Boolean,
+  ANTISNIPER: Boolean,
+  BLACKLIST: Boolean,
+  TRANSFERDELAY: Boolean,
+  CA_CLOCK: Boolean, 
+  MESSAGE: Boolean,
+  MESSAGE_TEXT: String
 });
 
 const RequestModel = mongoose.model('Request', requestSchema);

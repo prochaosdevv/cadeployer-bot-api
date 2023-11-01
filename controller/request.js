@@ -11,22 +11,37 @@ const nextField = {
     TOKEN_NAME: "TOKEN_SYMBOL",
     TOKEN_SYMBOL: "OWNER",
     OWNER: "TOTAL_SUPPLY",
-    TOTAL_SUPPLY: "ROUTER_ADDRESS",
-    ROUTER_ADDRESS: "BUY_MAX",
-    BUY_MAX: "SELL_MAX",
-    SELL_MAX: "MAX_WALLET",
-    MAX_WALLET: "SWAP_TOKENS_AT",
-    SWAP_TOKENS_AT: "BUY_OP_FEE",
-    BUY_OP_FEE: "BUY_LIQ_FEE",
-    BUY_LIQ_FEE: "BUY_TREASURY_FEE",
+    TOTAL_SUPPLY: "FEE",
+    FEE : "BUY_OP_FEE",
+    BUY_OP_FEE: "BUY_TREASURY_FEE",
     BUY_TREASURY_FEE: "SELL_OP_FEE",
     SELL_OP_FEE: "SELL_TREASURY_FEE",
-    SELL_TREASURY_FEE: "SELL_LIQ_FEE",
-    SELL_LIQ_FEE: "OPERATING_ADDRESS",
+    SELL_TREASURY_FEE: "BUY_MAX",
+    BUY_MAX: "SELL_MAX",
+    SELL_MAX: "OPERATING_ADDRESS",
     OPERATING_ADDRESS: "TREASURY_ADDRESS",
-    TREASURY_ADDRESS: "CA_CLOCK_PER",
-    CA_CLOCK_PER: "FINAL",
-    FINAL: "FINAL",
+    TREASURY_ADDRESS: "TRADING", 
+    TRADING : "TRADING_BLOCK_LIMIT",
+    TRADING_BLOCK_LIMIT : "TRANSFER_LIMIT",
+    TRANSFER_LIMIT: "MAX_WALLET",   
+    MAX_WALLET: "SELL_LIMIT",
+    SELL_LIMIT: "BUY_LIMIT",
+    BUY_LIMIT: "TRANSFERDELAY",
+    TRANSFERDELAY: "ANTISNIPER",
+    ANTISNIPER : "SNIPING_BLOCK_LIMIT",
+    SNIPING_BLOCK_LIMIT :  "BLACKLIST",
+    BLACKLIST: "AMM",
+    AMM: "ROUTER_ADDRESS",
+    ROUTER_ADDRESS: "BUY_LIQ_FEE",
+    BUY_LIQ_FEE: "SELL_LIQ_FEE",  
+    SELL_LIQ_FEE: "SWAP_TOKENS_AT",
+    SWAP_TOKENS_AT: "CA_CLOCK", 
+    CA_CLOCK : "CA_CLOCK_PER", 
+    CA_CLOCK_PER : "MESSAGE",
+    MESSAGE : "MESSAGE_TEXT",
+    MESSAGE_TEXT : "FINAL",
+    FINAL : "FINAL"
+
 }
 
 
@@ -35,23 +50,35 @@ const nextMsg = {
     TOKEN_NAME: "Please enter Token Symbol",
     TOKEN_SYMBOL: "Please enter Token Owner address",
     OWNER: "Please enter Token Supply",
-    TOTAL_SUPPLY: "ROUTER_ADDRESS",
-    ROUTER_ADDRESS: "Please enter max buy percentage of supply without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    BUY_MAX: "Please enter max sell percentage of supply without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    SELL_MAX: "Please enter max wallet limit percentage of supply without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    MAX_WALLET: "Please enter minimum amount percentage of supply that needs be hold by CA to make liquidity without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    SWAP_TOKENS_AT: "TOKEN_TAX",
-    TOKEN_TAX: "Please enter buy operation fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    BUY_OP_FEE: "Please enter buy liquiidty fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    BUY_LIQ_FEE: "Please enter buy treasury fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    TOTAL_SUPPLY: "FEE",
+    FEE : "Please enter buy operation fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    BUY_OP_FEE: "Please enter buy treasury fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
     BUY_TREASURY_FEE: "Please enter sell operation fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
     SELL_OP_FEE: "Please enter sell treasury fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    SELL_TREASURY_FEE: "Please enter sell liquiidty fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    SELL_LIQ_FEE: "Please enter operating fee address",
+    SELL_TREASURY_FEE: "Please enter max buy fee percentage of supply without % that can be ever set (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    BUY_MAX: "Please enter max sell fee percentage of supply without % that can be ever set (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    SELL_MAX: "Please enter operating fee address",
     OPERATING_ADDRESS: "Please enter treasury fee address",
-    TREASURY_ADDRESS: "Please enter initial CA lock percentage for liquidity sell without % (Please enter whole numbers only)",
-    CA_CLOCK_PER: "FINAL",
-    txnHash: "FINAL",
+    TREASURY_ADDRESS: "TRADING",
+    TRADING : "Please enter the maximum number of block allowed for trading control",
+    TRADING_BLOCK_LIMIT: "TRANSFER_LIMIT",
+    TRANSFER_LIMIT: "Please enter max wallet limit percentage of supply without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)" ,
+    MAX_WALLET: "Please enter max sell limit percentage of supply that can be set by owner without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    SELL_LIMIT: "Please enter max buy limit percentage of supply that can be set by owner without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    BUY_LIMIT: "TRANSFERDELAY" , 
+    TRANSFERDELAY: "ANTISNIPER",
+    ANTISNIPER: "SNIPING_BLOCK_LIMIT",
+    SNIPING_BLOCK_LIMIT :  "BLACKLIST",
+    BLACKLIST: "AMM" ,
+    AMM: "ROUTER_ADDRESS" , 
+    ROUTER_ADDRESS: "Please enter buy liquiidty fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    BUY_LIQ_FEE: "Please enter sell liquiidty fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    SELL_LIQ_FEE: "Please enter minimum amount percentage of supply that needs be hold by token contract to make liquidity without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    SWAP_TOKENS_AT: "CA_CLOCK",
+    CA_CLOCK : "Please enter initial CA lock percentage for liquidity sell without % (Please enter whole numbers only)",
+    CA_CLOCK_PER: "MESSAGE",
+    MESSAGE : "Please enter any message that you want to add at the beginning of the token contract.",
+    MESSAGE_TEXT: "FINAL",
     FINAL: "FINAL"
 }
 
@@ -197,6 +224,85 @@ exports.UpdateRequest = async (data) => {
             sendNextMsg(data.bot,data.chatId,nextMsg['TREASURY_ADDRESS'],data.network,request_id);
         }
 
+        if (data.TRADING) { 
+          await updatedCurrentField(username,nextField['TRADING_BLOCK_LIMIT']);
+          sendNextMsg(data.bot,data.chatId,nextMsg['TRADING_BLOCK_LIMIT'],data.network,request_id);
+
+ 
+      }
+      if (data.TRANSFER_LIMIT) { 
+        await updatedCurrentField(username,nextField['TRANSFER_LIMIT']);
+        sendNextMsg(data.bot,data.chatId,nextMsg['TRANSFER_LIMIT'],data.network,request_id);
+      }else if(data.TRANSFER_LIMITNO){
+        await updatedCurrentField(username,nextField['BUY_LIMIT']);
+    sendNextMsg(data.bot,data.chatId,nextMsg['BUY_LIMIT'],data.network,request_id);
+
+       
+    }
+
+    if(data.MESSAGE) {
+      await updatedCurrentField(username,nextField['MESSAGE']);
+      sendNextMsg(data.bot,data.chatId,nextMsg['MESSAGE'],data.network,request_id);
+    }
+    else if (data.MESSAGENO){
+      await updatedCurrentField(username,nextField['MESSAGE_TEXT']);
+      sendNextMsg(data.bot,data.chatId,nextMsg['MESSAGE_TEXT'],data.network,request_id);
+    }
+
+
+    if (data.ANTISNIPER) { 
+      await updatedCurrentField(username,nextField['ANTISNIPER']);
+     
+  }
+
+  if (data.ANTISNIPERNO) { 
+    await updatedCurrentField(username,nextField['SNIPING_BLOCK_LIMIT']);
+    sendNextMsg(data.bot,data.chatId,nextMsg['SNIPING_BLOCK_LIMIT'],data.network,request_id);
+
+   
+}
+    
+    
+    if (data.TRANSFERDELAY) { 
+      await updatedCurrentField(username,nextField['TRANSFERDELAY']);
+      sendNextMsg(data.bot,data.chatId,nextMsg['TRANSFERDELAY'],data.network,request_id);
+     
+  }
+  
+  if (data.BLACKLIST) { 
+    await updatedCurrentField(username,nextField['BLACKLIST']);
+    sendNextMsg(data.bot,data.chatId,nextMsg['BLACKLIST'],data.network,request_id);
+   
+}
+ 
+
+
+
+if (data.AMM) { 
+  await updatedCurrentField(username,nextField['AMM']);
+  sendNextMsg(data.bot,data.chatId,nextMsg['AMM'],data.network,request_id);
+ 
+}
+
+if (data.AMMNO) { 
+  await updatedCurrentField(username,nextField['SWAP_TOKENS_AT']);
+  sendNextMsg(data.bot,data.chatId,nextMsg['SWAP_TOKENS_AT'],data.network,request_id);
+ 
+}
+
+if (data.CA_CLOCK) { 
+  await updatedCurrentField(username,nextField['CA_CLOCK']);
+  sendNextMsg(data.bot,data.chatId,nextMsg['CA_CLOCK'],data.network,request_id);
+ 
+}
+
+if (data.CA_CLOCK_NO) { 
+  await updatedCurrentField(username,nextField['CA_CLOCK_PER']);
+  sendNextMsg(data.bot,data.chatId,nextMsg['CA_CLOCK_PER'],data.network,request_id);
+ 
+}
+
+
         console.log(`Request with request_id ${request_id} updated successfully`);
         return { result: 1, updatedRequest };
     }
@@ -240,9 +346,131 @@ async function sendNextMsg(bot,chatId,msg,network,requestId){
         if(msg == "ROUTER_ADDRESS"){
       
             bot.sendMessage(chatId, "Please choose a router for the token liquidity" , routerMarkup[network]);            
+        } 
+        
+        else if(msg == "TRADING"){      
+
+          bot.sendMessage(chatId, "Do you want to add trading control to your token ?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "trading_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "trading_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );          
+        
         }
-        else if(msg == "TOKEN_TAX"){      
-            bot.sendMessage(chatId, "Do you want to add tax to your token ?" , {  "reply_markup": {
+        else if(msg == "TRANSFER_LIMIT"){      
+
+          bot.sendMessage(chatId, "Do you want to add transfer and holding limit to your token ?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "transferlimit_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "transferlimit_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );          
+        
+        }
+        else if(msg == "TRANSFERDELAY"){      
+
+          bot.sendMessage(chatId, "Do you want to add transfer delay to your token ?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "transferdelay_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "transferdelay_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );          
+        
+        }
+        else if(msg == "ANTISNIPER"){      
+
+          bot.sendMessage(chatId, "Do you want to add anti-sniper functions to your token ?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "antisniper_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "antisniper_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );          
+        
+        }
+        else if(msg == "BLACKLIST"){      
+
+          bot.sendMessage(chatId, "Do you want to add blacklist functions to your token ?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "blacklist_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "blacklist_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );          
+        
+        }
+        else if(msg == "AMM"){      
+
+          bot.sendMessage(chatId, "Do you want to make it an AMM token ?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "amm_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "amm_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );          
+        
+        }
+
+        else if(msg == "FEE"){      
+            bot.sendMessage(chatId, "Do you want to add fees to your token ?" , {  "reply_markup": {
                 "inline_keyboard": [         
                     [
                       {
@@ -259,6 +487,43 @@ async function sendNextMsg(bot,chatId,msg,network,requestId){
                 ]
             }, parse_mode: 'html' } );            
         }
+
+        else if(msg == "CA_CLOCK"){      
+          bot.sendMessage(chatId, "Do you want to add CA locked to your token ?" , {  "reply_markup": {
+              "inline_keyboard": [         
+                  [
+                    {
+                      text: "Yes",
+                      callback_data: "calock_yes",
+      
+                    },
+                    {
+                      text: "No",
+                      callback_data: "calock_no",
+      
+                    },
+                  ]            
+              ]
+          }, parse_mode: 'html' } );            
+      }
+      else if(msg == "MESSAGE"){      
+        bot.sendMessage(chatId, "Do you want to add any message at the beginning of your token contract?" , {  "reply_markup": {
+            "inline_keyboard": [         
+                [
+                  {
+                    text: "Yes",
+                    callback_data: "message_yes",
+    
+                  },
+                  {
+                    text: "No",
+                    callback_data: "message_no",
+    
+                  },
+                ]            
+            ]
+        }, parse_mode: 'html' } );            
+    }
         else if(msg == "FINAL"){
             const check = await RequestModel.findOne({ _id: requestId });
 
@@ -266,8 +531,75 @@ async function sendNextMsg(bot,chatId,msg,network,requestId){
                 console.log(`Request doesn't exists`);
                 return { result: 0 };
             } else {
-                // console.log("Please review the data entered by you \n  Network: "+netwrokName[check.network]+" \nTOKEN_NAME: "+check.TOKEN_NAME+" \nTOKEN_SYMBOL: "+check.TOKEN_SYMBOL+" \nOWNER: "+check.OWNER+" \nTOTAL_SUPPLY: "+check.TOTAL_SUPPLY+" \nBUY_MAX: "+parseFloat(check.BUY_MAX/100).toFixed(2)+"% \nSELL_MAX: "+parseFloat(check.SELL_MAX/100).toFixed(2)+"% \nMAX_WALLET: "+parseFloat(check.MAX_WALLET/100).toFixed(2)+"% \nSWAP_TOKENS_AT: "+parseFloat(check.SWAP_TOKENS_AT/100).toFixed(2)+"% \nROUTER_ADDRESS: "+check.ROUTER_ADDRESS+" \nBUY_LIQ_FEE: "+parseFloat(check.BUY_LIQ_FEE/100).toFixed(2)+"% \nBUY_OP_FEE: "+parseFloat(check.BUY_OP_FEE/100).toFixed(2)+"% \nBUY_TREASURY_FEE: "+parseFloat(check.BUY_TREASURY_FEE/100).toFixed(2)+"% \nSELL_LIQ_FEE: "+parseFloat(check.SELL_LIQ_FEE/100).toFixed(2)+"% \nSELL_OP_FEE: "+parseFloat(check.SELL_OP_FEE/100).toFixed(2)+"% \nSELL_TREASURY_FEE: "+parseFloat(check.SELL_TREASURY_FEE/100).toFixed(2)+"% \nCA_CLOCK_PER: "+check.CA_CLOCK_PER+"% \nOPERATING_ADDRESS: "+check.OPERATING_ADDRESS+" \nTREASURY_ADDRESS: "+check.TREASURY_ADDRESS+" ");
-                let msg = "Please review the data entered by you \n\n<b>NETWORK:</b> "+netwrokName[check.network]+" \n<b>TOKEN_NAME:</b> "+check.TOKEN_NAME+" \n<b>TOKEN_SYMBOL:</b> "+check.TOKEN_SYMBOL+" \n<b>OWNER:</b> "+check.OWNER+" \n<b>TOTAL_SUPPLY:</b> "+check.TOTAL_SUPPLY+" \n<b>BUY_MAX:</b> "+parseFloat(check.BUY_MAX/100).toFixed(2)+"% \n<b>SELL_MAX:</b> "+parseFloat(check.SELL_MAX/100).toFixed(2)+"% \n<b>MAX_WALLET:</b> "+parseFloat(check.MAX_WALLET/100).toFixed(2)+"% \n<b>SWAP_TOKENS_AT:</b> "+parseFloat(check.SWAP_TOKENS_AT/100).toFixed(2)+"% \n<b>ROUTER_ADDRESS:</b> "+check.ROUTER_ADDRESS+" \n<b>BUY_LIQ_FEE:</b> "+parseFloat(check.BUY_LIQ_FEE/100).toFixed(2)+"% \n<b>BUY_OP_FEE:</b> "+parseFloat(check.BUY_OP_FEE/100).toFixed(2)+"% \n<b>BUY_TREASURY_FEE:</b> "+parseFloat(check.BUY_TREASURY_FEE/100).toFixed(2)+"% \n<b>SELL_LIQ_FEE:</b> "+parseFloat(check.SELL_LIQ_FEE/100).toFixed(2)+"% \n<b>SELL_OP_FEE:</b> "+parseFloat(check.SELL_OP_FEE/100).toFixed(2)+"% \n<b>SELL_TREASURY_FEE:</b> "+parseFloat(check.SELL_TREASURY_FEE/100).toFixed(2)+"% \n<b>CA_CLOCK_PER:</b> "+check.CA_CLOCK_PER+"% \n<b>OPERATING_ADDRESS:</b> "+check.OPERATING_ADDRESS+" \n<b>TREASURY_ADDRESS:</b> "+check.TREASURY_ADDRESS ;
+                 
+                let msg = "Please review the data entered by you \n\n<b>NETWORK:</b> "+netwrokName[check.network] ;
+                msg += "\n<b>TOKEN_NAME:</b> "+check.TOKEN_NAME ;
+                msg += "\n<b>TOKEN_SYMBOL:</b> "+check.TOKEN_SYMBOL;
+                msg += "\n<b>OWNER:</b> "+check.OWNER;
+                msg += "\n<b>TOTAL_SUPPLY:</b> "+check.TOTAL_SUPPLY;
+                if(check.FEE){
+                  msg += "\n<b>FEE:</b> YES" ;
+                  msg += "\n<b>BUY_OP_FEE:</b> "+parseFloat(check.BUY_OP_FEE/100).toFixed(2)+"%" ;
+                  msg += "\n<b>BUY_TREASURY_FEE:</b> "+parseFloat(check.BUY_TREASURY_FEE/100).toFixed(2)+"%" ;
+                  msg += "\n<b>SELL_OP_FEE:</b> "+parseFloat(check.SELL_OP_FEE/100).toFixed(2)+"%";
+                  msg += "\n<b>SELL_TREASURY_FEE:</b> "+parseFloat(check.SELL_TREASURY_FEE/100).toFixed(2)+"%" ;
+                  msg += "\n<b>MAX BUY FEE:</b> "+parseFloat(check.BUY_MAX/100).toFixed(2)+"%" ;
+                  msg += "\n<b>MAX SELL FEE:</b> "+parseFloat(check.SELL_MAX/100).toFixed(2)+"%" ;
+                  msg += "\n<b>OPERATING_ADDRESS:</b> "+check.OPERATING_ADDRESS ;
+                  msg += "\n<b>TREASURY_ADDRESS:</b> "+check.TREASURY_ADDRESS ;
+                }
+                else{
+                  msg += "\n<b>FEE:</b> NO" ;
+                }
+                if(check.TRADING){
+                  msg += "\n<b>TRADING_CONTROL:</b> YES" ;
+                  msg += "\n<b>TRADING_BLOCK_LIMIT:</b> "+check.TRADING_BLOCK_LIMIT ;
+
+                }  else{
+                  msg += "\n<b>TRADING:</b> NO" ;
+                }
+
+                if(check.TRANSFER_LIMIT){
+                  msg += "\n<b>TRANSFER_LIMIT:</b> YES" ;
+                  msg += "\n<b>MAX_WALLET:</b> "+check.MAX_WALLET ;
+                  msg += "\n<b>SELL_LIMIT:</b> "+check.SELL_LIMIT ;
+                  msg += "\n<b>BUY_LIMIT:</b> "+check.BUY_LIMIT ;
+
+                }  else{
+                  msg += "\n<b>TRANSFER_LIMIT:</b> NO" ;
+                }
+
+                if(check.TRANSFERDELAY){
+                  msg += "\n<b>TRANSFERDELAY:</b> YES" ; 
+
+                }  else{
+                  msg += "\n<b>TRANSFERDELAY:</b> NO" ;
+                }
+
+                if(check.ANTISNIPER){
+                  msg += "\n<b>ANTISNIPER:</b> YES" ; 
+                  msg += "\n<b>SNIPING_BLOCK_LIMIT:</b> "+check.SNIPING_BLOCK_LIMIT ;
+
+
+                }  else{
+                  msg += "\n<b>ANTISNIPER:</b> NO" ;
+                }
+
+                if(check.AMM){
+                  msg += "\n<b>AMM:</b> YES" ;
+                  msg += "\n<b>ROUTER_ADDRESS:</b> "+check.ROUTER_ADDRESS ;
+                  msg += "\n<b>BUY_LIQ_FEE:</b> "+parseFloat(check.BUY_LIQ_FEE/100).toFixed(2)+"%";
+                  msg += "\n<b>SELL_LIQ_FEE:</b> "+parseFloat(check.SELL_LIQ_FEE/100).toFixed(2)+"%" ;
+                  msg += "\n<b>SWAP_TOKENS_AT:</b> "+parseFloat(check.SWAP_TOKENS_AT/100).toFixed(2)+"%"
+
+              }  else{
+                msg += "\n<b>AMM:</b> NO" ;
+              }
+               
+               
+                msg += "\n<b>CA_CLOCK_PER:</b> "+(check.CA_CLOCK ? check.CA_CLOCK_PER+"%" : "NO") ; 
+             
+                msg += "\n<b>MESSAGE:</b> "+(check.MESSAGE ? check.MESSAGE_TEXT : "NA") ;
 
                 bot.sendMessage(chatId, msg , {                         
                     parse_mode: "html",       

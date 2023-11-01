@@ -108,10 +108,16 @@ bot.onText(/\/verify/, async (msg) => {
     let tax_data = callbackQuery.data  ;
     let tax = tax_data.replace("tax_","");
     if(tax == "yes"){
+      let data = {
+        FEE: true
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId , updateData : data});   
+    await updatedCurrentField(callbackQuery.message.chat.username ,"BUY_OP_FEE")
     bot.sendMessage(chatId, 'Please enter buy operation fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)');
     }
     else{
       let data = {
+        FEE: false,
         BUY_OP_FEE: 0,
         BUY_LIQ_FEE: 0,
         BUY_TREASURY_FEE: 0,
@@ -126,6 +132,190 @@ bot.onText(/\/verify/, async (msg) => {
 
     }
    }
+   else if(callbackQuery.data.includes("trading_")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("trading_","");
+    if(choice == "yes"){
+      let data = {
+        TRADING: true,
+      }
+
+    await updatedCurrentField(callbackQuery.message.chat.username ,"TRADING_BLOCK_LIMIT")
+
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId , updateData : data});   
+
+
+    bot.sendMessage(chatId, 'Please enter the maximum number of block allowed for trading control');
+    }
+    else{
+      let data = {
+        TRADING: false,
+        TRADING_BLOCK_LIMIT: 0,
+         
+        
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, TRADING : true  , updateData : data});   
+
+    }
+   }
+   else if(callbackQuery.data.includes("transferlimit_")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("transferlimit_","");
+    if(choice == "yes"){
+      let data = {
+        TRANSFER_LIMIT: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, TRANSFER_LIMIT : true ,  chatId: chatId , updateData : data});   
+
+ 
+    }
+    else{
+      let data = {
+        TRANSFER_LIMIT: false, 
+        BUY_LIMIT: 10000,
+        SELL_LIMIT: 10000        
+      };
+
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, TRANSFER_LIMITNO : true  , updateData : data});   
+
+    }
+   }
+   else if(callbackQuery.data.includes("transferdelay")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("transferdelay","");
+    if(choice == "yes"){
+      let data = {
+        TRANSFERDELAY: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId ,  TRANSFERDELAY : true , updateData : data});   
+
+ 
+    }
+    else{
+      let data = {
+        TRANSFERDELAY: false, 
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, TRANSFERDELAY : true  , updateData : data});   
+
+    }
+   }else if(callbackQuery.data.includes("antisniper")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("antisniper","");
+    if(choice == "yes"){
+      let data = {
+        ANTISNIPER: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId ,ANTISNIPER : true,  updateData : data});   
+    bot.sendMessage(chatId, 'Please enter the maximum number of block allowed for trading control');
+
+    
+    }
+    else{
+      let data = {
+        ANTISNIPER: false, 
+         
+        
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, ANTISNIPERNO : true  , updateData : data});   
+
+    }
+   }
+   else if(callbackQuery.data.includes("blacklist_")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("blacklist_","");
+    if(choice == "yes"){
+      let data = {
+        BLACKLIST: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId ,  BLACKLIST : true , updateData : data});   
+
+ 
+    }
+    else{
+      let data = {
+        BLACKLIST: false, 
+         
+        
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, BLACKLIST : true  , updateData : data});   
+
+    }
+   }
+
+   else if(callbackQuery.data.includes("amm_")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("amm_","");
+    if(choice == "yes"){
+      let data = {
+        AMM: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId ,  AMM : true , updateData : data});   
+
+ 
+    }
+    else{
+      let data = {
+        AMM: false, 
+         
+        
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, AMMNO : true  , updateData : data});   
+      
+    }
+   }
+
+   
+   else if(callbackQuery.data.includes("calock_")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("calock_","");
+    if(choice == "yes"){
+      let data = {
+        CA_CLOCK: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId ,  CA_CLOCK : true , updateData : data});   
+
+ 
+    }
+    else{
+      let data = {
+        CA_CLOCK: false, 
+         
+        
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, CA_CLOCK_NO : true  , updateData : data});   
+      
+    }
+   }
+
+   else if(callbackQuery.data.includes("message_")){
+    // subscribe(callbackQuery.message)
+    let choice_data = callbackQuery.data  ;
+    let choice = choice_data.replace("message_","");
+    if(choice == "yes"){
+      let data = {
+        MESSAGE: true,
+      }
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId ,MESSAGE:true ,  updateData : data});   
+
+ 
+    }
+    else{
+      let data = {
+        MESSAGE: false, 
+         
+        
+      };
+    await UpdateRequest({username : callbackQuery.message.chat.username , network: null, bot: bot, chatId: chatId, MESSAGENO : true  , updateData : data});   
+      
+    }
+   }   
    else if(callbackQuery.data.includes("confirm_")){
     let confirm_data = callbackQuery.data ; 
     let request_id = confirm_data.replace("confirm_","");
@@ -208,7 +398,8 @@ bot.onText(/\/verify/, async (msg) => {
       bot.sendMessage(chatId,`Contract: ${requestDetail.contractAddress}` );  
     }
     else{
-   
+      try{
+
       const {txnHash , data} = await deployStandardToken({data: requestDetail})
     bot.deleteMessage(chatId,_tmsgid.message_id)
       
@@ -221,6 +412,14 @@ bot.onText(/\/verify/, async (msg) => {
         bot.sendMessage(chatId,`Contract: ${data}` );   
       }
     }
+    catch(e){
+    bot.deleteMessage(chatId,_tmsgid.message_id)
+      bot.sendMessage(chatId,`Deployment failed.` ); 
+
+      // console.log();
+    }
+  }
+
       
       
     } 
