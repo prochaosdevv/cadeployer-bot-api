@@ -55,9 +55,9 @@ const nextMsg = {
     BUY_OP_FEE: "Please enter buy treasury fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
     BUY_TREASURY_FEE: "Please enter sell operation fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
     SELL_OP_FEE: "Please enter sell treasury fee percentage without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    SELL_TREASURY_FEE: "Please enter max sell fee limit percentage of supply that can be set by owner without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    SELL_FEE_LIMIT: "Please enter max buy fee limit percentage of supply that can be set by owner without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
-    BUY_FEE_LIMIT: "Please enter operating fee address",
+    SELL_TREASURY_FEE: "Please enter max buy fee limit percentage of supply that can be set by owner without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    BUY_FEE_LIMIT: "Please enter max sell fee limit percentage of supply that can be set by owner without % (Please enter in multiples of 100 for e.g. 100 for 1% ,150 for 1.5% and so on)",
+    SELL_FEE_LIMIT: "Please enter operating fee address",    
     OPERATING_ADDRESS: "Please enter treasury fee address",
     TREASURY_ADDRESS: "TRADING",
     TRADING : "Please enter the maximum number of block allowed for trading control",
@@ -544,8 +544,8 @@ async function sendNextMsg(bot,chatId,msg,network,requestId){
                   msg += "\n<b>BUY_TREASURY_FEE:</b> "+parseFloat(check.BUY_TREASURY_FEE/100).toFixed(2)+"%" ;
                   msg += "\n<b>SELL_OP_FEE:</b> "+parseFloat(check.SELL_OP_FEE/100).toFixed(2)+"%";
                   msg += "\n<b>SELL_TREASURY_FEE:</b> "+parseFloat(check.SELL_TREASURY_FEE/100).toFixed(2)+"%" ;
-                  msg += "\n<b>MAX BUY FEE:</b> "+parseFloat(check.BUY_MAX/100).toFixed(2)+"%" ;
-                  msg += "\n<b>MAX SELL FEE:</b> "+parseFloat(check.SELL_MAX/100).toFixed(2)+"%" ;
+                  msg += "\n<b>MAX BUY FEE:</b> "+parseFloat(check.BUY_FEE_LIMIT/100).toFixed(2)+"%" ;
+                  msg += "\n<b>MAX SELL FEE:</b> "+parseFloat(check.SELL_FEE_LIMIT/100).toFixed(2)+"%" ;
                   msg += "\n<b>OPERATING_ADDRESS:</b> "+check.OPERATING_ADDRESS ;
                   msg += "\n<b>TREASURY_ADDRESS:</b> "+check.TREASURY_ADDRESS ;
                 }
@@ -563,8 +563,8 @@ async function sendNextMsg(bot,chatId,msg,network,requestId){
                 if(check.TRANSFER_LIMIT){
                   msg += "\n<b>TRANSFER_LIMIT:</b> YES" ;
                   msg += "\n<b>MAX_WALLET:</b> "+check.MAX_WALLET ;
-                  msg += "\n<b>SELL_LIMIT:</b> "+check.SELL_LIMIT ;
-                  msg += "\n<b>BUY_LIMIT:</b> "+check.BUY_LIMIT ;
+                  msg += "\n<b>SELL_LIMIT:</b> "+check.SELL_MAX ;
+                  msg += "\n<b>BUY_LIMIT:</b> "+check.BUY_MAX ;
 
                 }  else{
                   msg += "\n<b>TRANSFER_LIMIT:</b> NO" ;
