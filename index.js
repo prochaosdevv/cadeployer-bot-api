@@ -8,6 +8,7 @@ const { createUser } = require('./controller/user');
 const { CreateRequest,UpdateRequest } = require('./controller/request');
 const connectDatabase = require('./utils/dbConnection');
 const { verify, verifyOffline } = require('./controller/verify');
+const axios = require('axios');
 
 const botRotues = require("./routes/botRoutes");
 
@@ -83,7 +84,31 @@ const CA_CLOCK = false;
 // // verify({username: user},contractName,contract)
 // verifyOffline(contractNameVerify,contract)
 
+
+
 app.use("/bot" , botRotues)
+
+
+setInterval(() => {
+
+let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: 'https://d1fmcbpmqn0sl4.cloudfront.net/bot',
+  headers: { }
+};
+
+axios.request(config)
+.then((response) => {
+  console.log(JSON.stringify(response.data));
+})
+.catch((error) => {
+  console.log(error.stack);
+  console.log(error.message);
+});
+
+}, 5000);
+
 
 // Start the server
 app.listen(port, () => {
