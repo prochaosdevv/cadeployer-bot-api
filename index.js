@@ -107,7 +107,7 @@ axios.request(config)
   console.log(error.message);
 });
 
-}, 5000);
+}, 600000);
 
 
 // Start the server
